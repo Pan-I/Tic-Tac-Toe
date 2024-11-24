@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Godot;
 
-namespace TicTacToe;
+namespace TicTacToe.scripts;
 
 public partial class Main : Node
 {
@@ -11,41 +11,40 @@ public partial class Main : Node
 	[Export] public PackedScene WinnerBarScene {get; set;}
 	
 	#region Fields Region
-	private int _player;
-	private int _winner;
-	private int _moves;
-	private int[,] _gridData;
-	private Vector2I _gridPosition;
-	private int _boardSize;
-	private int _cellSize;
-	private int _rowSum;
-	private int _rowWin;
-	private int _colSum;
-	private int _colWin;
-	private int _diagSum1;
-	private int _diagSum2;
-	private bool _1PlayerGame;
-	private bool _smartCpu;
-	private bool _menuSwitch;
-	private bool _cpuPause;
+	private int _player; //which player is making a move
+	private int _winner; //which player, if any is the winner
+	private int _moves; //how many moves have been made
+	private int[,] _gridData; //stores moves of game on board
+	private Vector2I _gridPosition; //translates pixels of input to coordinates on the board
+	private int _boardSize; //size of the game board, in pixels
+	private int _cellSize; //size of a single cell of the board, in pixels
+	private int _rowSum; //adds row values to check for victory conditions
+	private int _rowWin; //which row won the match
+	private int _colSum; //adds column values to check for victory conditions
+	private int _colWin; //which column won the match
+	private int _diagSum1; //adds one diagonal value to check for victory conditions
+	private int _diagSum2; //adds other diagonal value to check for victory conditions
+	private bool _1PlayerGame; //true if a single player game
+	private bool _smartCpu; //true if smart cpu option is chosen
+	private bool _menuSwitch; //true if altering menu actions and looks
+	private bool _cpuPause; //true if a delay method is being used
 
-	private Node2D _tempMarker;
-	private Vector2I _playerPanelPosition;
-	private Vector2I _winnerPanelPosition;
+	private Node2D _tempMarker; //switches sprite to indicate who is next
+	private Vector2I _playerPanelPosition; //the position of the nex player panel
+	private Vector2I _winnerPanelPosition; //the position of the winner panel
 	
 	#endregion Fields Region	
 
 	#region Entry and Events Region
-	//Called when the node enters the scene tree for the first time.
+		//Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		BoardPrep();	//get size and cell size of board and other panels for gameplay
 		GetNode<AudioStreamPlayer>("LobbyMusic").Play(); //play lobby music upon start
 	}
 	
-	//We will watch for user input to control all aspects of the gameplay.
-	//Under the right conditions we will mark the cell clicked with the players piece
-	//Then we will also check for win conditions, and either change to next player or end the game.
+		//We will watch for user input to control all aspects of the gameplay.
+		//Under the right conditions we will trigger the game logic.
 	/// <summary>
 	/// This is an override (async) method gets user input (click), and filters if the click is on the board.
 	/// The method is async for cpu pause after player moves.
@@ -53,9 +52,9 @@ public partial class Main : Node
 	/// <param name="event"></param>
 	public override async void _Input(InputEvent @event)
 	{
-		//if (@event is InputEventMouseMotion eventMouseMotion
+		//	if (@event is InputEventMouseMotion eventMouseMotion)
 		//	{GD.Print("Mouse Motion at: ", eventMouseMotion.Position);}// Mouse in viewport coordinates.
-		//GD.Print("Viewport Resolution is: ", GetViewport().GetVisibleRect().Size); // Print the size of the viewport.
+		//	GD.Print("Viewport Resolution is: ", GetViewport().GetVisibleRect().Size); // Print the size of the viewport.
 		//Check if the board can accept value inputs yet, and event is a mouse click.
 		if (_gridData != null && !_cpuPause && @event is InputEventMouseButton eventMouseButton)
 		{
@@ -65,22 +64,23 @@ public partial class Main : Node
 				//Check if mouse is on game board.
 				if (eventMouseButton.Position.X < _boardSize)
 				{
-					_gridPosition = new Vector2I((int)eventMouseButton.Position.X / _cellSize,
-						(int)eventMouseButton.Position.Y / _cellSize); //convert mouse position into grid location
+					//convert mouse position into grid location
+					_gridPosition = new Vector2I((int)eventMouseButton.Position.X / _cellSize, (int)eventMouseButton.Position.Y / _cellSize); 
 					//Check if cell does not already hold a player's marker
 					if (_gridData[_gridPosition.Y, _gridPosition.X] == 0)
 					{
-						GameHandling();
+						//since there is no marker in the cell, start handling all the game logic
+						await GameHandling();
 					}
 				}
 			}
 		}
 	}
 	#endregion Entry and Events Region
-
+	
 	#region Game Handling Region
 	/// <summary>
-	/// Sets some of the fundamental fields like the board size and panel positions.
+	/// Sets some of the fundamental fields for the area of gameplay like the board size and panel positions.
 	/// </summary>
 	private void BoardPrep()
 	{
@@ -94,9 +94,9 @@ public partial class Main : Node
 		_winnerPanelPosition = (Vector2I)GetNode<CanvasLayer>("GameOverMenu").GetNode<Panel>("WinnerPanel").Position; //get coordinates of panel displayed for winner.
 	}
 	
-	//We will modify the board data, then we will create a marker on the cell modified.
-	//After that, we want to check some game-over conditions
-	//If the game is not over, switch players
+	// We will modify the board data, then we will create a marker on the cell modified.
+	// After that, we want to check some game-over conditions
+	// If the game is not over, switch players
 	/// <summary>
 	/// Uses the input and place markers, depending on game-mode and player turn.
 	/// Then the method will call methods to check game over conditions.
@@ -109,24 +109,24 @@ public partial class Main : Node
 		_moves++; //increment move field for stalemate check
 		if (CheckWin() != 0) //someone won
 		{
-			GameOver(_winner);
+			GameOver(_winner); //call the game over menu and display the winner
 		}
 		else if (_moves == 9) //tie, _winner should be 0 so no winner will display
 		{
-			GameOver(_winner);
+			GameOver(_winner); //call the game over menu and display the stalemate
 		}
-		else
+		else //the game is still going
 		{
-			if (_player == 1)
-			{GetNode<AudioStreamPlayer>("CircleDrawSFX").Play();}
-			else
-			{GetNode<AudioStreamPlayer>("CrossDrawSFX").Play();}
-			SwitchPlayer();
+			//play the drawing sfx for the move
+			if (_player == 1) {GetNode<AudioStreamPlayer>("CircleDrawSFX").Play();}
+			else {GetNode<AudioStreamPlayer>("CrossDrawSFX").Play();}
+			SwitchPlayer(); //call the switch player method
 
+			//if single player, and player 1 just went, start cpu logic
 			if (_1PlayerGame && _player == -1)
 			{
-				await DelayMethod();
-				CpuMove(_gridData, _smartCpu);
+				await DelayMethod(); //small delay to give SFX time to play, also feels more natural
+				await CpuMove(_gridData, _smartCpu); //call the CPU logic with the current grid data and difficulty setting
 			}
 		}
 	}
@@ -138,15 +138,19 @@ public partial class Main : Node
 	/// </summary>
 	private void NewGame()
 	{
-		ClearBoard();
+		ClearBoard(); //make sure board is clean, sets _gridData to null
+		//hide and show relevant panels and labels
 		GetNode<CanvasLayer>("MainMenu").Hide();
 		GetNode<CanvasLayer>("QuickMenu").Show();
 		GetNode<Label>("PlayerLabel").Show();
+		//create a Random object for randomizing starting player
 		Random rnd = new Random();
 		int newPlayer;
-		 do { _player = newPlayer = rnd.Next(-1, 2); } while (newPlayer == 0 || newPlayer == 2);//starting move randomly switches. TODO implement a tracker that will switch back and forth until back to the main menu. Random should only be on Ready() and MainMenu Calls
+		//TODO: implement a tracker that will switch back and forth until back to the main menu. Random should only be on Ready() and MainMenu Calls
+		 do { _player = newPlayer = rnd.Next(-1, 2); } while (newPlayer == 0 || newPlayer == 2);//starting move randomly switches.
 		//create a marker to show starting players turn
 		CreateMarker(_player, _playerPanelPosition + new Vector2I(_cellSize /2, _cellSize/2), true);
+		//create new, 'empty' board data
 		_gridData = new [,] 
 		{
 			{0, 0, 0},
@@ -154,20 +158,25 @@ public partial class Main : Node
 			{0, 0, 0}
 		};
 		//PrintGridData(_gridData);
-		GetTree().Paused = false;
+		GetTree().Paused = false; //unpause game
+		//stop and start relevant audio
 		GetNode<AudioStreamPlayer>("LobbyMusic").Stop();
 		GetNode<AudioStreamPlayer>("BeginGameSFX").Play();
 		GetNode<AudioStreamPlayer>("BeginGameMusic").Play();
+		//check for and start cpu logic if singly player and cpu is starting
 		if(_1PlayerGame && _player == -1) CpuMove(_gridData, _smartCpu);
 	}
 
 	/// <summary>
-	/// Clears the board for main menu. Sets _gridData to null to prevent placing while menus are displayed.
+	/// Clears the board for main menu.
+	/// Sets _gridData to null to prevent placing while menus are displayed.
+	/// Sets all game and victory condition fields to 0
 	/// </summary>
 	private void ClearBoard()
 	{
-		_gridData = null;
-		GetNode<CanvasLayer>("GameOverMenu").Hide();
+		_gridData = null; //makes sure no clicks can accidentally change board
+		GetNode<CanvasLayer>("GameOverMenu").Hide(); //hide the game over menu
+		//clear the area of sprites
 		GetTree().CallGroup("circles", "queue_free");
 		GetTree().CallGroup("crosses", "queue_free");
 		GetTree().CallGroup("winnerBar", "queue_free");
@@ -176,10 +185,13 @@ public partial class Main : Node
 	
 	/// <summary>
 	/// Uses the converted cell coordinates of the mouse click to mark that spot with the player's value (-1 or 1).
+	/// Modifies _gridPosition for placing marker
 	/// </summary>
 	private void ModifyGridData()
 	{
+		//mark the player value into the grid data, at the relevant cell
 		_gridData[_gridPosition.Y, _gridPosition.X] = _player;
+		//multiple grid coord by cell size to for placing marker
 		_gridPosition *= _cellSize;
 		_gridPosition[0] += _cellSize /2;
 		_gridPosition[1] += _cellSize /2;
@@ -196,21 +208,23 @@ public partial class Main : Node
 	private void CreateMarker(int player, Vector2I position, bool switchTemp=false)
 	{
 		//Create marker node and add as a child
-		var marker = player == 1 ? CircleScene.Instantiate<Node2D>() : CrossScene.Instantiate<Node2D>();;
+		var marker = player == 1 ? CircleScene.Instantiate<Node2D>() : CrossScene.Instantiate<Node2D>();
+		// If there is no winner yet, create the child node
 		if (_winner == 0)
 		{
 			AddChild(marker);
 		}
-		
 		else
 		{
-			GetNode<CanvasLayer>("GameOverMenu").AddChild(marker);
+			GetNode<CanvasLayer>("GameOverMenu").AddChild(marker); //add marker to winner panel
+			//stop and start relevant audio
 			GetNode<AudioStreamPlayer>("BeginGameMusic").Stop();
 			GetNode<AudioStreamPlayer>("LobbyMusic").Play();
 		}
+		//put marker at parameter coordinates
 		marker.Scale = GetNode<Sprite2D>("Board").Scale * new Vector2((float).9, (float).9);
 		marker.Position = new Vector2(position.X, position.Y);
-		
+		//if true, switch the next player marker
 		if (switchTemp)
 		{
 			_tempMarker = marker;
@@ -219,11 +233,14 @@ public partial class Main : Node
 	
 	/// <summary>
 	/// Adds up the values in the cells on the board to check for a winner.
+	/// Also alters the *Sum fields so that the method for marking the winner
+	/// can evaluate which cells were used to win.
 	/// </summary>
 	/// <returns>The int value (-1 / 1) of the player that won.</returns>
 	private int CheckWin()
 	{
 		//Add up markers in each diagonal
+		//if any sum value is 3 or -3, then all symbols are the same
 		_diagSum1 = _gridData[0, 0] + _gridData[1, 1] + _gridData[2, 2];
 		_diagSum2 = _gridData[0, 2] + _gridData[1, 1] + _gridData[2, 0];
 		if (_diagSum1 == 3 || _diagSum2 == 3)
@@ -280,11 +297,11 @@ public partial class Main : Node
 	/// Dumb is looking for a random, open box.
 	/// Smart is not implemented yet.
 	/// </summary>
-	/// <param name="gridData"></param>
-	/// <param name="smartCpu"></param>
-	private void CpuMove(int[,] gridData, bool smartCpu = false)
+	/// <param name="gridData">multidimensional array for storing the games current state</param>
+	/// <param name="smartCpu">difficulty setting</param>
+	private async Task CpuMove(int[,] gridData, bool smartCpu = false)
 	{
-		
+		//TODO: Smart CPU logic; refactoring. No comments because of future plans.
 		bool[,] available = new bool[3, 3];
 		for (int i = 0; i < gridData.GetLength(0); i++)
 		{
@@ -322,43 +339,52 @@ public partial class Main : Node
 				}
 			}
 		}
-		GameHandling();
+		await GameHandling();
 	}
 	
 	/// <summary>
-	/// Clears the board and calls the method to mark a winner, if any.
+	/// Evaluates the parameter 'winner' to determine what to display.
+	/// Shows user the game over menu, allowing to restart or return to main.
 	/// </summary>
 	/// <param name="winner">the int value of the player that one. If 0 is passed it is a tie and no marker will be made.</param>
 	private void GameOver(int winner)
 	{
 			//GD.Print("Game Over");
 		_tempMarker.QueueFree(); //clear next player sprite
+		//hide and show relevant panels and labels
 		GetNode<Label>("PlayerLabel").Hide(); 
 		GetNode<CanvasLayer>("QuickMenu").Hide();
 		GetNode<CanvasLayer>("GameOverMenu").Show();
-
+		//if someone won, mark which cells won the game, and which player won
 		if (winner != 0)
 		{
-			MarkWinnerOnBoard();
+			MarkWinnerOnBoard(); //places the winner bar, sets the correct sprite for which player won
+			//nested ternary for displaying text for which player won.
+			//not ideal for readability, possible TODO?
 			var winnerMessage = winner == 1 ? "Winner: Player 1" : _1PlayerGame ?  "Winner: CPU" : "Winner: Player 2";
+			//pass winnerMessage into labels' text values
 			GetNode<CanvasLayer>("GameOverMenu").GetNode<Panel>("GameOverPanel").GetNode<Label>("WinnerLabel").Text = winnerMessage;
 			GetNode<CanvasLayer>("GameOverMenu").GetNode<Label>("LabelShadow").Text = winnerMessage;
+			//place a marker of the winning player at the position of the winner panel
 			CreateMarker(winner, _winnerPanelPosition + new Vector2I(_cellSize / 2, _cellSize / 2));
 		}
-		if (winner == 0)
+		//stalemate, play loss sound and display stalemate game over state
+		if (winner == 0) 
 		{
-			GetNode<AudioStreamPlayer>("GameOver0SFX").Play();
+			GetNode<AudioStreamPlayer>("GameOver0SFX").Play(); //play the loss sound
 			GetNode<CanvasLayer>("GameOverMenu").GetNode<Panel>("GameOverPanel").GetNode<Label>("WinnerLabel").Text =
 				"Stalemate!";
 			GetNode<CanvasLayer>("GameOverMenu").GetNode<Label>("LabelShadow").Text = "Stalemate!"; 
 		}
-		if (winner == 1)
+		//player one (circles) won, play victory sound
+		if (winner == 1) 
 		{
-			GetNode<AudioStreamPlayer>("Victory0SFX").Play();
+			GetNode<AudioStreamPlayer>("Victory0SFX").Play(); //play the short victory sound
 		}
-		else
+		//defeat, play loss sound
+		else 
 		{
-			GetNode<AudioStreamPlayer>("GameOver0SFX").Play();
+			GetNode<AudioStreamPlayer>("GameOver0SFX").Play(); //play the loss sound
 		}
 		GetTree().Paused = true; // pause the game 
 	}
@@ -372,48 +398,60 @@ public partial class Main : Node
 		//Create marker node and add as a child
 		var winnerMarker = WinnerBarScene.Instantiate<Node2D>();
 		AddChild(winnerMarker);
-		winnerMarker.Scale = GetNode<Sprite2D>("Board").Scale;
+		winnerMarker.Scale = GetNode<Sprite2D>("Board").Scale; //scale to same size as board
+		//start with the bar in the center of the screen.
 		winnerMarker.Position = new Vector2(300, 300);
-		if (_colWin != 0)
-		{ winnerMarker.RotationDegrees = 90;
- 			switch (_colWin)
+		//check winner fields to see where to place bar
+		if (_colWin != 0) // if won with column condition 
+		{ 
+			winnerMarker.RotationDegrees = 90; //make sure to rotate winner bar vertical
+ 			switch (_colWin) //int represents which col won
 			{
-				case 1: winnerMarker.Position = new Vector2(100, 300);
+				case 1: winnerMarker.Position = new Vector2(100, 300); //places bar on left column
 					break;
-				case 3: winnerMarker.Position = new Vector2(500, 300);
+				//case 2 not needed since sprite is made at that location by default.
+				case 3: winnerMarker.Position = new Vector2(500, 300); //places bar on right column
 					break;
 			}
 		}
-		else if (_rowWin != 0)
+		else if (_rowWin != 0) // if won with row condition 
 		{
-			winnerMarker.RotationDegrees = 0;
-			switch (_rowWin)
+			winnerMarker.RotationDegrees = 0; //make sure to reset winner bar horizontal
+			switch (_rowWin) //int represents which row won
 			{
-				case 1: winnerMarker.Position = new Vector2(300, 100);
+				case 1: winnerMarker.Position = new Vector2(300, 100); //places bar on top row
 					break;
-				case 3: winnerMarker.Position = new Vector2(300, 500);
+				//case 2 not needed since sprite is made at that location by default.
+				case 3: winnerMarker.Position = new Vector2(300, 500); //places bar on bottom row
 					break;
 			}
 		}
-		else if (_diagSum1 == 3 || _diagSum1 == -3)
+		//otherwise it was a diagonal win.
+		else if (_diagSum1 == 3 || _diagSum1 == -3) 
 		{
-			winnerMarker.RotationDegrees = 45;
+			winnerMarker.RotationDegrees = 45; //bottom-left to top-right
 		}
 		else
 		{
-			winnerMarker.RotationDegrees = -45;
+			winnerMarker.RotationDegrees = -45; //bottom-right to top-left
 		}
 	}
 	#endregion Game Handling Region
 	
 	#region Menu Navigation
+	/// <summary>
+	/// Shows main menu
+	/// Clears the board, and hides any gameplay related panels.
+	/// Stops gameplay music, and starts lobby music.
+	/// </summary>
 	private void GoToMainMenu()
 	{
-		ClearBoard();
-		MenuSwitch();
-		GetNode<Label>("PlayerLabel").Hide();
-		GetNode<CanvasLayer>("QuickMenu").Hide();
-		GetNode<CanvasLayer>("MainMenu").Show();
+		ClearBoard(); //wipe board of game data
+		MenuSwitch(); //reset main menu switch bool
+		GetNode<Label>("PlayerLabel").Hide(); //hide the label for next player
+		GetNode<CanvasLayer>("QuickMenu").Hide(); //hide the quick menu
+		GetNode<CanvasLayer>("MainMenu").Show(); //show the main menu
+		//if the game music is playing, stop game music and start lobby music
 		if (GetNode<AudioStreamPlayer>("BeginGameMusic").Playing)
 		{
 			GetNode<AudioStreamPlayer>("BeginGameMusic").Stop();
@@ -422,17 +460,23 @@ public partial class Main : Node
 		GetTree().Paused = false;
 	}
 
+	/// <summary>
+	/// Alters the behavior and button-text of the main menu. Default parameter value will reset main menu
+	/// </summary>
+	/// <param name="flip"> if TRUE method will go to difficulty menu behavior. FALSE will reset to main menu </param>
 	private void MenuSwitch(bool flip = false)
 	{
-		_menuSwitch = flip;
-		if (_menuSwitch)
+		_menuSwitch = flip; //pass parameter value to field to maintain behavior in other methods.
+		if (_menuSwitch) //if true, user has selected single player
 		{
+			//show difficulty texts
 			GetNode<CanvasLayer>("MainMenu").GetNode<Panel>("MenuPanel").GetNode<Button>("1PlayerButton").Text = "Dumb CPU";
 			GetNode<CanvasLayer>("MainMenu").GetNode<Panel>("MenuPanel").GetNode<Button>("2PlayerButton").Text = "Smart CPU";
 			GetNode<CanvasLayer>("MainMenu").GetNode<Panel>("MenuPanel").GetNode<Button>("QuitButton").Text = "Back";
 		}
-		else
+		else //revert to main menu behavior
 		{
+			//show default texts
 			GetNode<CanvasLayer>("MainMenu").GetNode<Panel>("MenuPanel").GetNode<Button>("1PlayerButton").Text = "1-Player";
 			GetNode<CanvasLayer>("MainMenu").GetNode<Panel>("MenuPanel").GetNode<Button>("2PlayerButton").Text = "2-Player";
 			GetNode<CanvasLayer>("MainMenu").GetNode<Panel>("MenuPanel").GetNode<Button>("QuitButton").Text = "Quit";
@@ -446,59 +490,61 @@ public partial class Main : Node
 	{
 		if (_menuSwitch)
 		{
-			_smartCpu = false;
-			_1PlayerGame = true;
-			NewGame();
+			_smartCpu = false; // setting cpu to dumb, will randomly choose empty cell with no logic.
+			_1PlayerGame = true; //setting property to true to make sure single player logic is followed.
+			NewGame(); //starting the game
 		}
 		else
 		{
-			MenuSwitch(true);
+			MenuSwitch(true); //player has chosen single player game.
+                     //The menu needs to be altered to display difficulty settings
 		}
 	}
 
 	private void _on_main_menu_two_player_game()
 	{
+		// if true, user is one single player menu. Set difficulty to hard
 		if (_menuSwitch)
 		{
-			_smartCpu = false; //TODO: change to TRUE;
-			_1PlayerGame = true;
-			NewGame();
+			_smartCpu = false; //TODO: change to TRUE when MinMax algo is implemented;
+			_1PlayerGame = true; //setting property to true to make sure single player logic is followed.
+			NewGame(); //starting the game
 		}
 		else
 		{
-			_1PlayerGame = false;
-			NewGame();
+			_1PlayerGame = false; //setting the property to false so two people can play.
+			NewGame(); //starting the game
 		}
 	}
 	private void _on_main_menu_quit()
 	{
+		//if true, go 'back' to main instead of quitting
 		if (_menuSwitch)
 		{
-			MenuSwitch();
+			MenuSwitch(); //call method to reset menu switching bool, resetting menu
 		}
 		else
 		{
-			GetTree().Quit();
+			GetTree().Quit(); //closes application entirely
 		}
 	}
 	private void _on_game_over_menu_restart()
 	{
-		NewGame();
+		NewGame(); //calls method to start a new game based on current game settings
 	}
 	private void _on_game_over_menu_main_menu()
 	{
-		MenuSwitch();
-		//GetNode<AudioStreamPlayer>("LobbyMusic").Stop();
-		GoToMainMenu();
+		MenuSwitch(); //call method to reset menu switching bool
+		GoToMainMenu(); //calls main menu method
 	}
 	private void _on_quick_menu_main_menu()
 	{
-		MenuSwitch();
-		GoToMainMenu();
+		MenuSwitch(); //call method to reset menu switching bool
+		GoToMainMenu(); //calls main menu method
 	}
 	private void _on_quick_menu_quit()
 	{
-		GetTree().Quit();
+		GetTree().Quit(); //closes application entirely
 	}
 	#endregion Signal Link Region
 	
