@@ -1,7 +1,8 @@
 # ❌🎮 Tic-Tac-Toe 👾⭕
 Tic Tac Toe as a Godot project. Written in C#. Game includes both 1-player with different difficulty settings, as well as 2-player gameplay.
 
-![[ReadMe ScreenShot.png]]
+<img src="https://raw.githubusercontent.com/Pan-I/Tic-Tac-Toe/refs/heads/PTDevBranch1/readme_links/ReadMe%20ScreenShot.png" alt="drawing" width="600"/>
+
 ---
 ## 🔨 Code Page 🔍
 90% of the projects code is in [`Main.cs`](https://github.com/Pan-I/Tic-Tac-Toe/blob/main/scripts/Main.cs)
@@ -46,7 +47,7 @@ If you would like to debug the game, you will need a C# IDE that is compatible w
 ---
 ## 📍Attributions 📜
 - All of the audio files used in this project are from [freesound.org](https://freesound.org/) 
-- The credits for the audio used are here: [**Attributions link**](https://github.com/Pan-I/Tic-Tac-Toe/blob/main//readme_links/Attributions.md)
+- The credits for the audio used are here: [**Attributions link**](https://github.com/Pan-I/Tic-Tac-Toe/tree/main/readme_links/Attributions.md)
 
 This project was heavily inspired by the following videos:
 - ['Beginner Godot Tutorial - How To Make Tic Tac Toe' by Coding with Russ](https://www.youtube.com/watch?v=w6leMEr1aGo&ab_channel=CodingWithRuss)
@@ -60,7 +61,7 @@ The following assets in `\assets` did use both Photoshop AI generation, as well 
 ---
 ## 🔧 Contributing 💾
 ##### Assets Folder
-Please do not remove the `assets/` directory location from the `.gitignore` if you wish to contribute. Please re-zip your assets folder if any changes are made that are intended to for the PR. The assets folder is not meant for scenes `(.tscn)` or script `(.cs)` files. 
+Please do not remove the "`assets/`" directory location from the `.gitignore` if you wish to contribute. Please re-zip your assets folder if any changes are made that are intended to for the PR. The assets folder is not meant for scenes `(.tscn)` or script `(.cs)` files. 
 ##### Asset Attributions
 Please update and or create any necessary attributions files if any additional resources are downloaded, instead of created by hand.
 
