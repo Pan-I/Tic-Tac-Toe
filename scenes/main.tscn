@@ -69,9 +69,9 @@ vertical_alignment = 1
 
 [node name="NextPanel" type="Panel" parent="."]
 offset_left = 650.0
-offset_top = 200.0
+offset_top = 198.0
 offset_right = 850.0
-offset_bottom = 400.0
+offset_bottom = 398.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_rej8l")
 
 [node name="Sprite2D" type="Sprite2D" parent="NextPanel"]
@@ -124,3 +124,5 @@ volume_db = 5.0
 [connection signal="OnePlayerGame" from="MainMenu" to="." method="_on_main_menu_one_player_game"]
 [connection signal="Quit" from="MainMenu" to="." method="_on_main_menu_quit"]
 [connection signal="TwoPlayerGame" from="MainMenu" to="." method="_on_main_menu_two_player_game"]
+[connection signal="MainMenu" from="QuickMenu" to="." method="_on_quick_menu_main_menu"]
+[connection signal="Quit" from="QuickMenu" to="." method="_on_quick_menu_quit"]

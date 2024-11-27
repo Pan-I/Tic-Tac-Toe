@@ -94,6 +94,58 @@ public partial class Main : Node
 		_winnerPanelPosition = (Vector2I)GetNode<CanvasLayer>("GameOverMenu").GetNode<Panel>("WinnerPanel").Position; //get coordinates of panel displayed for winner.
 	}
 	
+	/// <summary>
+	/// Clears the board for main menu.
+	/// Sets _gridData to null to prevent placing while menus are displayed.
+	/// Sets all game and victory condition fields to 0
+	/// </summary>
+	private void ClearBoard()
+	{
+		_gridData = null; //makes sure no clicks can accidentally change board
+		GetNode<CanvasLayer>("GameOverMenu").Hide(); //hide the game over menu
+		//clear the area of sprites
+		GetTree().CallGroup("circles", "queue_free");
+		GetTree().CallGroup("crosses", "queue_free");
+		GetTree().CallGroup("winnerBar", "queue_free");
+		_winner =_moves = _rowSum = _rowWin = _colSum = _colWin = _diagSum1 = _diagSum2 = 0; //set all the trackers to 0;
+	}
+	
+	/// <summary>
+	/// Resets all board stats and sprites for a new game. Will hide and show relevant menu panels.
+	/// Will randomize starting player field. Will unpause tree, and change music.
+	/// If 1-player will call cpu move if cpu is starting.
+	/// </summary>
+	private void NewGame()
+	{
+		ClearBoard(); //make sure board is clean, sets _gridData to null
+		//hide and show relevant panels and labels
+		GetNode<CanvasLayer>("MainMenu").Hide();
+		GetNode<CanvasLayer>("QuickMenu").Show();
+		GetNode<Label>("PlayerLabel").Show();
+		//create a Random object for randomizing starting player
+		Random rnd = new Random();
+		int newPlayer;
+		//TODO: implement a tracker that will switch back and forth until back to the main menu. Random should only be on Ready() and MainMenu Calls
+		do { _player = newPlayer = rnd.Next(-1, 2); } while (newPlayer == 0 || newPlayer == 2);//starting move randomly switches.
+		//create a marker to show starting players turn
+		CreateMarker(_player, _playerPanelPosition + new Vector2I(_cellSize /2, _cellSize/2), true);
+		//create new, 'empty' board data
+		_gridData = new [,] 
+		{
+			{0, 0, 0},
+			{0, 0, 0},
+			{0, 0, 0}
+		};
+		//PrintGridData(_gridData);
+		GetTree().Paused = false; //unpause game
+		//stop and start relevant audio
+		GetNode<AudioStreamPlayer>("LobbyMusic").Stop();
+		GetNode<AudioStreamPlayer>("BeginGameSFX").Play();
+		GetNode<AudioStreamPlayer>("BeginGameMusic").Play();
+		//check for and start cpu logic if singly player and cpu is starting
+		if(_1PlayerGame && _player == -1) CpuMove(_gridData, _smartCpu);
+	}
+	
 	// We will modify the board data, then we will create a marker on the cell modified.
 	// After that, we want to check some game-over conditions
 	// If the game is not over, switch players
@@ -129,58 +181,6 @@ public partial class Main : Node
 				await CpuMove(_gridData, _smartCpu); //call the CPU logic with the current grid data and difficulty setting
 			}
 		}
-	}
-
-	/// <summary>
-	/// Resets all board stats and sprites for a new game. Will hide and show relevant menu panels.
-	/// Will randomize starting player field. Will unpause tree, and change music.
-	/// If 1-player will call cpu move if cpu is starting.
-	/// </summary>
-	private void NewGame()
-	{
-		ClearBoard(); //make sure board is clean, sets _gridData to null
-		//hide and show relevant panels and labels
-		GetNode<CanvasLayer>("MainMenu").Hide();
-		GetNode<CanvasLayer>("QuickMenu").Show();
-		GetNode<Label>("PlayerLabel").Show();
-		//create a Random object for randomizing starting player
-		Random rnd = new Random();
-		int newPlayer;
-		//TODO: implement a tracker that will switch back and forth until back to the main menu. Random should only be on Ready() and MainMenu Calls
-		 do { _player = newPlayer = rnd.Next(-1, 2); } while (newPlayer == 0 || newPlayer == 2);//starting move randomly switches.
-		//create a marker to show starting players turn
-		CreateMarker(_player, _playerPanelPosition + new Vector2I(_cellSize /2, _cellSize/2), true);
-		//create new, 'empty' board data
-		_gridData = new [,] 
-		{
-			{0, 0, 0},
-			{0, 0, 0},
-			{0, 0, 0}
-		};
-		//PrintGridData(_gridData);
-		GetTree().Paused = false; //unpause game
-		//stop and start relevant audio
-		GetNode<AudioStreamPlayer>("LobbyMusic").Stop();
-		GetNode<AudioStreamPlayer>("BeginGameSFX").Play();
-		GetNode<AudioStreamPlayer>("BeginGameMusic").Play();
-		//check for and start cpu logic if singly player and cpu is starting
-		if(_1PlayerGame && _player == -1) CpuMove(_gridData, _smartCpu);
-	}
-
-	/// <summary>
-	/// Clears the board for main menu.
-	/// Sets _gridData to null to prevent placing while menus are displayed.
-	/// Sets all game and victory condition fields to 0
-	/// </summary>
-	private void ClearBoard()
-	{
-		_gridData = null; //makes sure no clicks can accidentally change board
-		GetNode<CanvasLayer>("GameOverMenu").Hide(); //hide the game over menu
-		//clear the area of sprites
-		GetTree().CallGroup("circles", "queue_free");
-		GetTree().CallGroup("crosses", "queue_free");
-		GetTree().CallGroup("winnerBar", "queue_free");
-		_winner =_moves = _rowSum = _rowWin = _colSum = _colWin = _diagSum1 = _diagSum2 = 0; //set all the trackers to 0;
 	}
 	
 	/// <summary>
@@ -232,6 +232,16 @@ public partial class Main : Node
 	}
 	
 	/// <summary>
+	/// Switches the player field and sets the next player marker.
+	/// </summary>
+	private void SwitchPlayer()
+	{
+		_player *= -1; //switch player;
+		_tempMarker.QueueFree(); //clear next player sprite
+		CreateMarker(_player, _playerPanelPosition + new Vector2I(_cellSize / 2, _cellSize / 2), true); //display next player
+	}
+	
+	/// <summary>
 	/// Adds up the values in the cells on the board to check for a winner.
 	/// Also alters the *Sum fields so that the method for marking the winner
 	/// can evaluate which cells were used to win.
@@ -268,78 +278,6 @@ public partial class Main : Node
 			}
 		}
 		return _winner;
-	}
-	
-	/// <summary>
-	/// Switches the player field and sets the next player marker.
-	/// </summary>
-	private void SwitchPlayer()
-	{
-		_player *= -1; //switch player;
-		_tempMarker.QueueFree(); //clear next player sprite
-		CreateMarker(_player, _playerPanelPosition + new Vector2I(_cellSize / 2, _cellSize / 2), true); //display next player
-	}
-
-	//Short pause so CPU doesn't move right after, gives SFX a chance to play.
-	/// <summary>
-	/// Delays to give natural pause before CPU moves.
-	/// Manipulates _cpuPause field to mimic unsubscribing from event. 
-	/// </summary>
-	private async Task DelayMethod()
-	{
-		_cpuPause = true;
-		await Task.Delay(TimeSpan.FromMilliseconds(1250));
-		_cpuPause = false;
-	}
-	
-	/// <summary>
-	/// Handles CPU logic, depending on difficulty setting (_smartCpu field)
-	/// Dumb is looking for a random, open box.
-	/// Smart is not implemented yet.
-	/// </summary>
-	/// <param name="gridData">multidimensional array for storing the games current state</param>
-	/// <param name="smartCpu">difficulty setting</param>
-	private async Task CpuMove(int[,] gridData, bool smartCpu = false)
-	{
-		//TODO: Smart CPU logic; refactoring. No comments because of future plans.
-		bool[,] available = new bool[3, 3];
-		for (int i = 0; i < gridData.GetLength(0); i++)
-		{
-			for (int j = 0; j < gridData.GetLength(1); j++)
-			{
-				if (gridData[i, j] == 0)
-				{
-					available[i, j] = true;
-				}
-			}
-		}
-		if (!smartCpu)
-		{
-			bool open;
-			int xIndex;
-			int yIndex;
-			Random r = new Random();
-			do
-			{
-				open = available[yIndex = r.Next(available.GetLength(0)), xIndex = r.Next(available.GetLength(1))];
-			} while (!open);
-
-			_gridPosition = new Vector2I(xIndex, yIndex);
-		}
-		else
-		{
-			for (int i = 0; i < gridData.GetLength(0); i++)
-			{
-				for (int j = 0; j < gridData.GetLength(1); j++)
-				{
-					if (gridData[i, j] == 0)
-					{
-						available[i, j] = true;
-					}
-				}
-			}
-		}
-		await GameHandling();
 	}
 	
 	/// <summary>
@@ -436,6 +374,69 @@ public partial class Main : Node
 			winnerMarker.RotationDegrees = -45; //bottom-right to top-left
 		}
 	}
+	
+	//Short pause so CPU doesn't move right after, gives SFX a chance to play.
+	/// <summary>
+	/// Delays to give natural pause before CPU moves.
+	/// Manipulates _cpuPause field to mimic unsubscribing from event. 
+	/// </summary>
+	private async Task DelayMethod()
+	{
+		_cpuPause = true;
+		await Task.Delay(TimeSpan.FromMilliseconds(1250));
+		_cpuPause = false;
+	}
+	
+	/// <summary>
+	/// Handles CPU logic, depending on difficulty setting (_smartCpu field)
+	/// Dumb is looking for a random, open box.
+	/// Smart is not implemented yet.
+	/// </summary>
+	/// <param name="gridData">multidimensional array for storing the games current state</param>
+	/// <param name="smartCpu">difficulty setting</param>
+	private async Task CpuMove(int[,] gridData, bool smartCpu = false)
+	{
+		//TODO: Smart CPU logic; refactoring. No comments because of future plans.
+		bool[,] available = new bool[3, 3];
+		for (int i = 0; i < gridData.GetLength(0); i++)
+		{
+			for (int j = 0; j < gridData.GetLength(1); j++)
+			{
+				if (gridData[i, j] == 0)
+				{
+					available[i, j] = true;
+				}
+			}
+		}
+		if (!smartCpu)
+		{
+			bool open;
+			int xIndex;
+			int yIndex;
+			Random r = new Random();
+			do
+			{
+				open = available[yIndex = r.Next(available.GetLength(0)), xIndex = r.Next(available.GetLength(1))];
+			} while (!open);
+
+			_gridPosition = new Vector2I(xIndex, yIndex);
+		}
+		else
+		{
+			for (int i = 0; i < gridData.GetLength(0); i++)
+			{
+				for (int j = 0; j < gridData.GetLength(1); j++)
+				{
+					if (gridData[i, j] == 0)
+					{
+						available[i, j] = true;
+					}
+				}
+			}
+		}
+		await GameHandling();
+	}
+
 	#endregion Game Handling Region
 	
 	#region Menu Navigation
@@ -497,7 +498,7 @@ public partial class Main : Node
 		else
 		{
 			MenuSwitch(true); //player has chosen single player game.
-                     //The menu needs to be altered to display difficulty settings
+					 //The menu needs to be altered to display difficulty settings
 		}
 	}
 
