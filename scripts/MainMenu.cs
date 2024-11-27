@@ -7,16 +7,17 @@ public partial class MainMenu : CanvasLayer
 	[Signal] public delegate void OnePlayerGameEventHandler();
 	[Signal] public delegate void TwoPlayerGameEventHandler();
 	[Signal] public delegate void QuitEventHandler();
+	
 	private void _on_player_button_pressed()
 	{
-		EmitSignal(TicTacToe.scripts.MainMenu.SignalName.OnePlayerGame);
+		EmitSignal(SignalName.OnePlayerGame);
 	}
 	private void _on_2player_button_pressed()
 	{
-		EmitSignal(TicTacToe.scripts.MainMenu.SignalName.TwoPlayerGame);
+		EmitSignal(SignalName.TwoPlayerGame);
 	}
 	private void _on_quit_button_pressed()
 	{
-		EmitSignal(TicTacToe.scripts.MainMenu.SignalName.Quit);
+		EmitSignal(SignalName.Quit);
 	}
 }
