@@ -10,8 +10,9 @@ config_version=5
 
 [application]
 
-config/name="Tic Tac Toe"
+config/name="Tic-Tac-Toe"
 config/description="Tic-Tac-Toe as a Godot project. Written in C#. Game includes both 1-player with different difficulty settings, as well as 2-player gameplay."
+config/version=".9"
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://icon.svg"

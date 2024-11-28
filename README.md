@@ -1,7 +1,8 @@
 # ❌🎮 Tic-Tac-Toe 👾⭕
 Tic-Tac-Toe as a Godot project. Written in C#. Game includes both 1-player with different difficulty settings, as well as 2-player gameplay.
 
-<img src="https://raw.githubusercontent.com/Pan-I/Tic-Tac-Toe/refs/heads/main/readme_links/ReadMe%20ScreenShot.png" alt="broken link of game screenshot" width="600"/>
+<img src="https://raw.githubusercontent.com/Pan-I/Tic-Tac-Toe/refs/heads/main/readme_links/ReadMe%20ScreenShot.png" alt="broken link of game screenshot 1" width="700"/>
+<img src="https://raw.githubusercontent.com/Pan-I/Tic-Tac-Toe/refs/heads/main/readme_links/ReadMe%20ScreenShot%20Small.png" alt="broken link of game screenshot 2" width="325"/> <img src="https://raw.githubusercontent.com/Pan-I/Tic-Tac-Toe/refs/heads/main/readme_links/ReadMe%20ScreenShot%20Small2.png" alt="broken link of game screenshot 3" width="325"/>
 
 ---
 ## 🔨 Code Page 🔍

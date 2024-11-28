@@ -75,6 +75,14 @@ public partial class Main : Node
 				}
 			}
 		}
+		else if(@event is InputEventKey { Keycode: Key.Escape, Pressed: true })
+		{
+			if (GetNode<CanvasLayer>("MainMenu").Visible 
+				 || GetNode<CanvasLayer>("GameOverMenu").Visible)
+			{
+				GetTree().Quit();
+			}
+		}
 	}
 	#endregion Entry and Events Region
 	
@@ -137,11 +145,11 @@ public partial class Main : Node
 			{0, 0, 0}
 		};
 		//PrintGridData(_gridData);
-		GetTree().Paused = false; //unpause game
+		_cpuPause = false; //unpause game
 		//stop and start relevant audio
 		GetNode<AudioStreamPlayer>("LobbyMusic").Stop();
 		GetNode<AudioStreamPlayer>("BeginGameSFX").Play();
-		GetNode<AudioStreamPlayer>("BeginGameMusic").Play();
+		GetNode<AudioStreamPlayer>("GameMusic").Play();
 		//check for and start cpu logic if singly player and cpu is starting
 		if(_1PlayerGame && _player == -1) CpuMove(_gridData, _smartCpu);
 	}
@@ -218,7 +226,7 @@ public partial class Main : Node
 		{
 			GetNode<CanvasLayer>("GameOverMenu").AddChild(marker); //add marker to winner panel
 			//stop and start relevant audio
-			GetNode<AudioStreamPlayer>("BeginGameMusic").Stop();
+			GetNode<AudioStreamPlayer>("GameMusic").Stop();
 			GetNode<AudioStreamPlayer>("LobbyMusic").Play();
 		}
 		//put marker at parameter coordinates
@@ -255,26 +263,36 @@ public partial class Main : Node
 		_diagSum2 = _gridData[0, 2] + _gridData[1, 1] + _gridData[2, 0];
 		if (_diagSum1 == 3 || _diagSum2 == 3)
 		{
-			return _winner = 1;
+			return _winner = 1; //player-1 won
 		}
 		if (_diagSum1 == -3 || _diagSum2 == -3)
 		{
-			return _winner = -1;
+			return _winner = -1; //player-2 won
 		}
 		//Add up markers in each row, column
 		for (int i = 0; i < 3; i++)
 		{
 			_rowSum = _gridData[i, 0] + _gridData[i, 1] + _gridData[i, 2];
-			_colSum = _gridData[0, i] + _gridData[1, i] + _gridData[2, i];
-			if (_rowSum == 3 || _colSum == 3)
+			if (_rowSum == 3)
 			{
-				var k = _rowSum == 3 ? _rowWin = (i + 1) : _colWin = (i + 1);
-				return _winner = 1;
+				_rowWin = (i + 1); //add one to assign row number
+				return _winner = 1; //player-1 won
 			}
-			if (_rowSum == -3 || _colSum == -3)
+			if (_rowSum == -3)
 			{
-				var k = _rowSum == -3 ? _rowWin = (i + 1) : _colWin = (i + 1);
-				return _winner = -1;
+				_rowWin = (i + 1); //add one to assign row number
+				return _winner = -1; //player-2 won
+			}
+			_colSum = _gridData[0, i] + _gridData[1, i] + _gridData[2, i];
+			if (_colSum == 3)
+			{
+				_colWin = (i + 1); //add one to assign column number
+				return _winner = 1; //player-1 won
+			}
+			if (_colSum == -3)
+			{
+				_colWin = (i + 1); //add one to assign column number
+				return _winner = -1; //player-2 won
 			}
 		}
 		return _winner;
@@ -324,7 +342,8 @@ public partial class Main : Node
 		{
 			GetNode<AudioStreamPlayer>("GameOver0SFX").Play(); //play the loss sound
 		}
-		GetTree().Paused = true; // pause the game 
+		_cpuPause = true; //pause the game
+		//GetTree().Paused = true; //this would prevent using InputEvent
 	}
 
 	/// <summary>
@@ -453,12 +472,12 @@ public partial class Main : Node
 		GetNode<CanvasLayer>("QuickMenu").Hide(); //hide the quick menu
 		GetNode<CanvasLayer>("MainMenu").Show(); //show the main menu
 		//if the game music is playing, stop game music and start lobby music
-		if (GetNode<AudioStreamPlayer>("BeginGameMusic").Playing)
+		if (GetNode<AudioStreamPlayer>("GameMusic").Playing)
 		{
-			GetNode<AudioStreamPlayer>("BeginGameMusic").Stop();
+			GetNode<AudioStreamPlayer>("GameMusic").Stop();
 			GetNode<AudioStreamPlayer>("LobbyMusic").Play();
 		}
-		GetTree().Paused = false;
+		_cpuPause = false; //unpause the game
 	}
 
 	/// <summary>
@@ -547,6 +566,22 @@ public partial class Main : Node
 	{
 		GetTree().Quit(); //closes application entirely
 	}
+	
+	private void _on_sfx_button_toggled(bool toggled_on)
+	{
+		GetNode<AudioStreamPlayer>("BeginGameSFX").VolumeDb = toggled_on ? 0 : -80;
+		GetNode<AudioStreamPlayer>("Victory0SFX").VolumeDb = toggled_on ? 0 : -80;
+		GetNode<AudioStreamPlayer>("GameOver0SFX").VolumeDb = toggled_on ? 0 : -80;
+		GetNode<AudioStreamPlayer>("CircleDrawSFX").VolumeDb = toggled_on ? 0 : -80;
+		GetNode<AudioStreamPlayer>("CrossDrawSFX").VolumeDb = toggled_on ? 0 : -80;
+	}
+
+	private void _on_music_button_toggled(bool toggled_on)
+	{
+		GetNode<AudioStreamPlayer>("LobbyMusic").VolumeDb = toggled_on ? 0 : -80;
+		GetNode<AudioStreamPlayer>("GameMusic").VolumeDb = toggled_on ? 0 : -80;
+	}
+	
 	#endregion Signal Link Region
 	
 	#region Debug Region
