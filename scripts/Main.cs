@@ -124,17 +124,23 @@ public partial class Main : Node
 	/// If 1-player will call cpu move if cpu is starting.
 	/// </summary>
 	private void NewGame()
-	{
-		ClearBoard(); //make sure board is clean, sets _gridData to null
+	{ 
 		//hide and show relevant panels and labels
 		GetNode<CanvasLayer>("MainMenu").Hide();
 		GetNode<CanvasLayer>("QuickMenu").Show();
 		GetNode<Label>("PlayerLabel").Show();
-		//create a Random object for randomizing starting player
-		Random rnd = new Random();
-		int newPlayer;
-		//TODO: implement a tracker that will switch back and forth until back to the main menu. Random should only be on Ready() and MainMenu Calls
-		do { _player = newPlayer = rnd.Next(-1, 2); } while (newPlayer == 0 || newPlayer == 2);//starting move randomly switches.
+		if (_winner == 0)
+		{
+			//create a Random object for randomizing starting player
+			Random rnd = new Random();
+			int newPlayer;
+			do
+			{
+				_player = newPlayer = rnd.Next(-1, 2);
+			} while (newPlayer == 0 || newPlayer == 2); //starting move randomly switches.
+		}
+		else { _player = (_winner *-1); }
+		ClearBoard(); //make sure board is clean, sets _gridData to null
 		//create a marker to show starting players turn
 		CreateMarker(_player, _playerPanelPosition + new Vector2I(_cellSize /2, _cellSize/2), true);
 		//create new, 'empty' board data
@@ -151,7 +157,11 @@ public partial class Main : Node
 		GetNode<AudioStreamPlayer>("BeginGameSFX").Play();
 		GetNode<AudioStreamPlayer>("GameMusic").Play();
 		//check for and start cpu logic if singly player and cpu is starting
-		if(_1PlayerGame && _player == -1) CpuMove(_gridData, _smartCpu);
+		if (_1PlayerGame && _player == -1)
+		{
+			_gridPosition = CpuPlayer.CpuMove(_gridData, _smartCpu);
+			GameHandling();
+		}
 	}
 	
 	// We will modify the board data, then we will create a marker on the cell modified.
@@ -162,7 +172,7 @@ public partial class Main : Node
 	/// Then the method will call methods to check game over conditions.
 	/// If the game is not over method will call switch player methods.
 	/// </summary>
-	private async Task GameHandling()
+	internal async Task GameHandling()
 	{
 		ModifyGridData(); //change board data
 		CreateMarker(_player, _gridPosition); //create marker
@@ -186,7 +196,8 @@ public partial class Main : Node
 			if (_1PlayerGame && _player == -1)
 			{
 				await DelayMethod(); //small delay to give SFX time to play, also feels more natural
-				await CpuMove(_gridData, _smartCpu); //call the CPU logic with the current grid data and difficulty setting
+				_gridPosition = CpuPlayer.CpuMove(_gridData, _smartCpu); //call the CPU logic with the current grid data and difficulty setting
+				GameHandling();
 			}
 		}
 	}
@@ -404,56 +415,6 @@ public partial class Main : Node
 		_cpuPause = true;
 		await Task.Delay(TimeSpan.FromMilliseconds(1250));
 		_cpuPause = false;
-	}
-	
-	/// <summary>
-	/// Handles CPU logic, depending on difficulty setting (_smartCpu field)
-	/// Dumb is looking for a random, open box.
-	/// Smart is not implemented yet.
-	/// </summary>
-	/// <param name="gridData">multidimensional array for storing the games current state</param>
-	/// <param name="smartCpu">difficulty setting</param>
-	private async Task CpuMove(int[,] gridData, bool smartCpu = false)
-	{
-		//TODO: Smart CPU logic; refactoring. No comments because of future plans.
-		bool[,] available = new bool[3, 3];
-		for (int i = 0; i < gridData.GetLength(0); i++)
-		{
-			for (int j = 0; j < gridData.GetLength(1); j++)
-			{
-				if (gridData[i, j] == 0)
-				{
-					available[i, j] = true;
-				}
-			}
-		}
-		if (!smartCpu)
-		{
-			bool open;
-			int xIndex;
-			int yIndex;
-			Random r = new Random();
-			do
-			{
-				open = available[yIndex = r.Next(available.GetLength(0)), xIndex = r.Next(available.GetLength(1))];
-			} while (!open);
-
-			_gridPosition = new Vector2I(xIndex, yIndex);
-		}
-		else
-		{
-			for (int i = 0; i < gridData.GetLength(0); i++)
-			{
-				for (int j = 0; j < gridData.GetLength(1); j++)
-				{
-					if (gridData[i, j] == 0)
-					{
-						available[i, j] = true;
-					}
-				}
-			}
-		}
-		await GameHandling();
 	}
 
 	#endregion Game Handling Region
