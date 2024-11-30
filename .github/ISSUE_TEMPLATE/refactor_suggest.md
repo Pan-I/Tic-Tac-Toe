@@ -2,7 +2,7 @@
 name: Refactor suggest
 about: Suggest an refactor this project
 title: '*Title* (New Refactor Suggest)'
-labels: 'refactor', 'new'
+labels: refactor, new
 assignees: ''
 
 ---

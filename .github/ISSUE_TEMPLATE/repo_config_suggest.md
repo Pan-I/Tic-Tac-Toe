@@ -2,7 +2,7 @@
 name: Repo Configuration suggest
 about: Suggest an improvement for the configuration of this repo
 title: '*Title* (New Config Suggestion)'
-labels: 'gitconfig', 'new'
+labels: gitconfig, new
 assignees: ''
 
 ---
