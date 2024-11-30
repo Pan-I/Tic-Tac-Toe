@@ -1,0 +1,161 @@
+[gd_scene load_steps=12 format=3 uid="uid://cgj3ffrrrqy5v"]
+
+[ext_resource type="Script" path="res://scripts/GameOverMenu.cs" id="1_udoph"]
+[ext_resource type="Texture2D" uid="uid://c5tt2ecyexdnn" path="res://assets/sprites/WinnerSquare.png" id="2_pn64e"]
+[ext_resource type="StyleBox" uid="uid://dws66wsptb4qj" path="res://assets/sprites/menuStyle.tres" id="2_ywl2h"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s0r5i"]
+bg_color = Color(0.364706, 0.364706, 0.364706, 0)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 0.796078, 0, 1)
+shadow_color = Color(0.0313726, 0.0392157, 0.0862745, 0.929412)
+shadow_size = 5
+shadow_offset = Vector2(50, 50)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sjr5h"]
+bg_color = Color(0.133333, 0.180392, 0.337255, 0.537255)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.701961, 0.701961, 0.247059, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_color = Color(0.14902, 0.168627, 0.219608, 0.6)
+shadow_size = 4
+shadow_offset = Vector2(50, 50)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ofn06"]
+bg_color = Color(0.411765, 0.388235, 0.819608, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cx7gy"]
+bg_color = Color(0.505882, 0.435294, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3rkgf"]
+bg_color = Color(0.352941, 0.356863, 0.694118, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_owkui"]
+bg_color = Color(0.282353, 0.611765, 0.454902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_isgmo"]
+bg_color = Color(0.247059, 0.694118, 0.482353, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sof51"]
+bg_color = Color(0.211765, 0.47451, 0.360784, 1)
+
+[node name="GameOverMenu" type="CanvasLayer"]
+script = ExtResource("1_udoph")
+
+[node name="LabelShadow" type="Label" parent="."]
+offset_left = 118.0
+offset_top = 162.0
+offset_right = 519.0
+offset_bottom = 292.0
+theme_override_colors/font_color = Color(0.0313726, 0.0470588, 0.113725, 0.803922)
+theme_override_font_sizes/font_size = 44
+text = "Winner:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WinnerPanel" type="Panel" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -282.0
+offset_top = -359.0
+offset_right = -82.0
+offset_bottom = -159.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_s0r5i")
+
+[node name="GameOverPanel" type="Panel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -382.0
+offset_top = -188.0
+offset_right = 18.0
+offset_bottom = 165.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_sjr5h")
+
+[node name="Sprite2D" type="Sprite2D" parent="GameOverPanel"]
+position = Vector2(200, 229)
+texture = ExtResource("2_pn64e")
+
+[node name="WinnerLabel" type="Label" parent="GameOverPanel"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 398.0
+offset_bottom = 134.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 44
+text = "Winner:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MenuPanel" type="Panel" parent="."]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -358.0
+offset_top = -100.0
+offset_right = -96.0
+offset_bottom = 100.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 8
+theme_override_styles/panel = ExtResource("2_ywl2h")
+
+[node name="MainMenuButton" type="Button" parent="MenuPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_top = 24.0
+offset_right = 100.0
+offset_bottom = 84.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_ofn06")
+theme_override_styles/hover = SubResource("StyleBoxFlat_cx7gy")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3rkgf")
+text = "Main Menu"
+
+[node name="PlayAgainButton" type="Button" parent="MenuPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -84.0
+offset_right = 100.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_owkui")
+theme_override_styles/hover = SubResource("StyleBoxFlat_isgmo")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_sof51")
+text = "Play Again"
+
+[connection signal="pressed" from="MenuPanel/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="MenuPanel/PlayAgainButton" to="." method="_on_play_again_button_pressed"]

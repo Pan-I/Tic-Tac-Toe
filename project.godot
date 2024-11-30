@@ -1,0 +1,30 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Tic-Tac-Toe"
+config/description="Tic-Tac-Toe as a Godot project. Written in C#. Game includes both 1-player with different difficulty settings, as well as 2-player gameplay.
+
+Copyright GPL-2.0 (C) <2024>  <Ian M Pommer>"
+config/version="0.9.2.0"
+run/main_scene="res://scenes/main.tscn"
+config/features=PackedStringArray("4.2", "C#", "Forward Plus")
+config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=900
+window/size/viewport_height=600
+window/size/resizable=false
+
+[dotnet]
+
+project/assembly_name="Tic-Tac-Toe"

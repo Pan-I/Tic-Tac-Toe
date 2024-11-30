@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://148av1op47pi"]
+
+[ext_resource type="Texture2D" uid="uid://gypgi2if0mqg" path="res://assets/sprites/WinnerBar.png" id="1_lny68"]
+
+[node name="winnerBar" type="Sprite2D" groups=["winnerBar"]]
+texture = ExtResource("1_lny68")

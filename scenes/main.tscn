@@ -1,0 +1,154 @@
+[gd_scene load_steps=24 format=3 uid="uid://dwqstegy0v0o8"]
+
+[ext_resource type="PackedScene" uid="uid://n3pmbyr1b6q7" path="res://scenes/board.tscn" id="1_6533p"]
+[ext_resource type="Script" path="res://scripts/Main.cs" id="1_ifv81"]
+[ext_resource type="PackedScene" uid="uid://db2wxvh6vp35m" path="res://scenes/circle.tscn" id="2_ccw3s"]
+[ext_resource type="PackedScene" uid="uid://cb1k0evpt0a1" path="res://scenes/cross.tscn" id="3_htbn4"]
+[ext_resource type="PackedScene" uid="uid://148av1op47pi" path="res://scenes/winner_bar.tscn" id="4_re0vm"]
+[ext_resource type="PackedScene" uid="uid://cgj3ffrrrqy5v" path="res://scenes/game_over_menu.tscn" id="5_3nj22"]
+[ext_resource type="Texture2D" uid="uid://pnnyla081yip" path="res://assets/sprites/SidePanel.png" id="5_8nnb8"]
+[ext_resource type="PackedScene" uid="uid://dh2gayudjflao" path="res://scenes/main_menu.tscn" id="6_c8obm"]
+[ext_resource type="Texture2D" uid="uid://bsiasfnvc3nkg" path="res://assets/sprites/PlayerSquare.png" id="6_s12mk"]
+[ext_resource type="Texture2D" uid="uid://7aepimhlve82" path="res://assets/sprites/fx_OnSwitch.png" id="7_lt1im"]
+[ext_resource type="Texture2D" uid="uid://demmycj4enc3q" path="res://assets/sprites/music_OnSwitch.png" id="8_fvnky"]
+[ext_resource type="Texture2D" uid="uid://d3vvl86l3wgy" path="res://assets/sprites/fx_OffSwitch.png" id="8_qqvqp"]
+[ext_resource type="Texture2D" uid="uid://73ua22r6pq2k" path="res://assets/sprites/music_OffSwitch.png" id="10_0r1si"]
+[ext_resource type="PackedScene" uid="uid://dpyqype4nd877" path="res://scenes/quick_menu.tscn" id="10_24svn"]
+[ext_resource type="AudioStream" uid="uid://h4xmknll10q2" path="res://assets/sfx/NewGameSFX.wav" id="11_ngf2e"]
+[ext_resource type="AudioStream" uid="uid://d32nompk4md7s" path="res://assets/sfx/LoseSFX.wav" id="12_kosdw"]
+[ext_resource type="AudioStream" uid="uid://d2pe4xn2uhvnm" path="res://assets/sfx/WinShortSFX.wav" id="13_ybutm"]
+[ext_resource type="AudioStream" uid="uid://d36iqbqn5tbnd" path="res://assets/sfx/GameMusic.mp3" id="14_jbc1n"]
+[ext_resource type="AudioStream" uid="uid://j2s6ja23e48" path="res://assets/sfx/LobbyMusic.mp3" id="15_fs44o"]
+[ext_resource type="AudioStream" uid="uid://bopw3f5cdbqmh" path="res://assets/sfx/ChalkCrossSFX.wav" id="16_qj3a1"]
+[ext_resource type="AudioStream" uid="uid://dh1qxnvtf4612" path="res://assets/sfx/ChalkCircleSFX.wav" id="17_c0ndu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ncmef"]
+bg_color = Color(0.368627, 0.596078, 0.862745, 1)
+border_width_left = 8
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rej8l"]
+shadow_color = Color(0.0196078, 0.0196078, 0.0196078, 0.709804)
+shadow_size = 5
+shadow_offset = Vector2(7, 7)
+
+[node name="Main" type="Node"]
+script = ExtResource("1_ifv81")
+CircleScene = ExtResource("2_ccw3s")
+CrossScene = ExtResource("3_htbn4")
+WinnerBarScene = ExtResource("4_re0vm")
+
+[node name="Board" parent="." instance=ExtResource("1_6533p")]
+position = Vector2(300, 300)
+scale = Vector2(0.667, 0.667)
+
+[node name="SidePanel" type="Panel" parent="."]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -300.0
+offset_bottom = 300.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ncmef")
+
+[node name="SidePanel" type="Sprite2D" parent="SidePanel"]
+position = Vector2(150, 300)
+texture = ExtResource("5_8nnb8")
+
+[node name="SfxButton" type="CheckButton" parent="SidePanel"]
+layout_mode = 0
+offset_left = 54.0
+offset_top = 39.0
+offset_right = 141.0
+offset_bottom = 122.0
+theme_override_icons/checked = ExtResource("7_lt1im")
+theme_override_icons/unchecked = ExtResource("8_qqvqp")
+button_pressed = true
+flat = true
+
+[node name="MusicButton" type="CheckButton" parent="SidePanel"]
+layout_mode = 0
+offset_left = 166.0
+offset_top = 34.0
+offset_right = 253.0
+offset_bottom = 117.0
+theme_override_icons/checked = ExtResource("8_fvnky")
+theme_override_icons/unchecked = ExtResource("10_0r1si")
+button_pressed = true
+
+[node name="PlayerLabel" type="Label" parent="."]
+visible = false
+offset_left = 600.0
+offset_top = 120.0
+offset_right = 900.0
+offset_bottom = 187.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 44
+text = "Next Player:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NextPanel" type="Panel" parent="."]
+offset_left = 650.0
+offset_top = 198.0
+offset_right = 850.0
+offset_bottom = 398.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_rej8l")
+
+[node name="NextPlayerPanel" type="Sprite2D" parent="NextPanel"]
+position = Vector2(103, 102)
+scale = Vector2(0.666, 0.666)
+texture = ExtResource("6_s12mk")
+
+[node name="GameOverMenu" parent="." instance=ExtResource("5_3nj22")]
+visible = false
+
+[node name="MainMenu" parent="." instance=ExtResource("6_c8obm")]
+
+[node name="QuickMenu" parent="." instance=ExtResource("10_24svn")]
+visible = false
+
+[node name="BeginGameSFX" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("11_ngf2e")
+
+[node name="GameOver0SFX" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("12_kosdw")
+volume_db = -15.0
+
+[node name="Victory0SFX" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("13_ybutm")
+volume_db = -10.0
+
+[node name="GameMusic" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("14_jbc1n")
+
+[node name="LobbyMusic" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("15_fs44o")
+autoplay = true
+
+[node name="CrossDrawSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_qj3a1")
+volume_db = 5.0
+
+[node name="CircleDrawSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("17_c0ndu")
+volume_db = 5.0
+
+[connection signal="toggled" from="SidePanel/SfxButton" to="." method="_on_sfx_button_toggled"]
+[connection signal="toggled" from="SidePanel/MusicButton" to="." method="_on_music_button_toggled"]
+[connection signal="MainMenu" from="GameOverMenu" to="." method="_on_game_over_menu_main_menu"]
+[connection signal="Restart" from="GameOverMenu" to="." method="_on_game_over_menu_restart"]
+[connection signal="OnePlayerGame" from="MainMenu" to="." method="_on_main_menu_one_player_game"]
+[connection signal="Quit" from="MainMenu" to="." method="_on_main_menu_quit"]
+[connection signal="TwoPlayerGame" from="MainMenu" to="." method="_on_main_menu_two_player_game"]
+[connection signal="MainMenu" from="QuickMenu" to="." method="_on_quick_menu_main_menu"]
+[connection signal="Quit" from="QuickMenu" to="." method="_on_quick_menu_quit"]

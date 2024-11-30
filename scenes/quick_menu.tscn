@@ -1,0 +1,91 @@
+[gd_scene load_steps=9 format=3 uid="uid://dpyqype4nd877"]
+
+[ext_resource type="Script" path="res://scripts/QuickMenu.cs" id="1_d6dde"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gr6af"]
+bg_color = Color(0.0862745, 0.121569, 0.239216, 0.839216)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.701961, 0.701961, 0.247059, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_color = Color(0.14902, 0.168627, 0.219608, 0.6)
+shadow_size = 4
+shadow_offset = Vector2(15, 15)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y74n2"]
+bg_color = Color(0.854902, 0.294118, 0.368627, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lvdyk"]
+bg_color = Color(0.866667, 0.2, 0.301961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5xui6"]
+bg_color = Color(0.72549, 0.270588, 0.32549, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oastf"]
+bg_color = Color(0.411765, 0.388235, 0.819608, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lxi3j"]
+bg_color = Color(0.505882, 0.435294, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_62lms"]
+bg_color = Color(0.352941, 0.356863, 0.694118, 1)
+
+[node name="QuickMenu" type="CanvasLayer"]
+script = ExtResource("1_d6dde")
+
+[node name="MenuPanel" type="Panel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 182.0
+offset_top = 124.0
+offset_right = 417.0
+offset_bottom = 268.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gr6af")
+
+[node name="QuitButton" type="Button" parent="MenuPanel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 33.0
+offset_top = -58.0
+offset_right = -32.0
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_y74n2")
+theme_override_styles/hover = SubResource("StyleBoxFlat_lvdyk")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_5xui6")
+text = "Quit"
+metadata/_edit_group_ = true
+
+[node name="MainMenuButton" type="Button" parent="MenuPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -83.5
+offset_top = 25.0
+offset_right = 87.5
+offset_bottom = 60.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_oastf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_lxi3j")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_62lms")
+text = "Main Menu"
+
+[connection signal="pressed" from="MenuPanel/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="MenuPanel/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
