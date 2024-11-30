@@ -124,17 +124,24 @@ public partial class Main : Node
 	/// If 1-player will call cpu move if cpu is starting.
 	/// </summary>
 	private void NewGame()
-	{
-		ClearBoard(); //make sure board is clean, sets _gridData to null
+	{ 
 		//hide and show relevant panels and labels
 		GetNode<CanvasLayer>("MainMenu").Hide();
 		GetNode<CanvasLayer>("QuickMenu").Show();
 		GetNode<Label>("PlayerLabel").Show();
-		//create a Random object for randomizing starting player
-		Random rnd = new Random();
-		int newPlayer;
-		//TODO: implement a tracker that will switch back and forth until back to the main menu. Random should only be on Ready() and MainMenu Calls
-		do { _player = newPlayer = rnd.Next(-1, 2); } while (newPlayer == 0 || newPlayer == 2);//starting move randomly switches.
+		if (_winner == 0)
+		{
+			//create a Random object for randomizing starting player
+			Random rnd = new Random();
+			int newPlayer;
+			//TODO: implement a tracker that will switch back and forth until back to the main menu. Random should only be on Ready() and MainMenu Calls
+			do
+			{
+				_player = newPlayer = rnd.Next(-1, 2);
+			} while (newPlayer == 0 || newPlayer == 2); //starting move randomly switches.
+		}
+		else { _player = (_winner *-1); }
+		ClearBoard(); //make sure board is clean, sets _gridData to null
 		//create a marker to show starting players turn
 		CreateMarker(_player, _playerPanelPosition + new Vector2I(_cellSize /2, _cellSize/2), true);
 		//create new, 'empty' board data

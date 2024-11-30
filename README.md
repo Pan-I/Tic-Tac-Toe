@@ -1,5 +1,5 @@
 # ❌🎮 Tic-Tac-Toe 👾⭕ - v0.9.2.0
-Tic-Tac-Toe as a Godot project. Written in C#. Game includes both 1-player with different difficulty settings, as well as 2-player gameplay. The game was built with Windows OS is mind, but could be configured and exported to other platforms.
+Tic-Tac-Toe as a Godot project. Written in C#. Game includes both 1-player with different difficulty settings, and 2-player gameplay. The game was built with Windows OS is mind, but could be configured and exported to other platforms.
 
 <img src="https://raw.githubusercontent.com/Pan-I/Tic-Tac-Toe/refs/heads/main/readme_links/ReadMe%20ScreenShot.png" alt="broken link of game screenshot 1" width="700"/>
 
@@ -51,14 +51,14 @@ If you would like to debug the game, you will need a C# IDE that is compatible w
 
 ---
 ## 📍Attributions 📜
-- All of the audio files used in this project are from [freesound.org](https://freesound.org/) 
+- All the audio files used in this project are from [freesound.org](https://freesound.org/) 
 - The credits for the audio used are here: [**Attributions link**](https://github.com/Pan-I/Tic-Tac-Toe/tree/main/readme_links/Attributions.md)
 
 This project was heavily inspired by the following videos:
 - ['Beginner Godot Tutorial - How To Make Tic Tac Toe' by Coding with Russ](https://www.youtube.com/watch?v=w6leMEr1aGo&ab_channel=CodingWithRuss)
 - ['Minimax Algorithm for Tic Tac Toe (Coding Challenge 154)' by The Coding Train](https://www.youtube.com/watch?v=trKjYdBASyQ)
 
-The following assets in `\assets` did use both Photoshop AI generation, as well as older Photoshop editing techniques:
+The following assets in `\assets` did use both Photoshop AI generation, and more traditional Photoshop editing techniques:
 
 - Grid.png
 - SidePanel.png
