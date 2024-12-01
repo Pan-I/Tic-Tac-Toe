@@ -11,23 +11,23 @@ public partial class Main : Node
 	[Export] public PackedScene WinnerBarScene {get; set;}
 	
 	#region Fields Region
-	private int _player; //which player is making a move
-	private int _winner; //which player, if any is the winner
-	private int _moves; //how many moves have been made
-	private int[,] _gridData; //stores moves of game on board
-	private Vector2I _gridPosition; //translates pixels of input to coordinates on the board
-	private int _boardSize; //size of the game board, in pixels
-	private int _cellSize; //size of a single cell of the board, in pixels
-	private int _rowSum; //adds row values to check for victory conditions
-	private int _rowWin; //which row won the match
-	private int _colSum; //adds column values to check for victory conditions
-	private int _colWin; //which column won the match
-	private int _diagSum1; //adds one diagonal value to check for victory conditions
-	private int _diagSum2; //adds other diagonal value to check for victory conditions
-	private bool _1PlayerGame; //true if a single player game
-	private bool _smartCpu; //true if smart cpu option is chosen
-	private bool _menuSwitch; //true if altering menu actions and looks
-	private bool _cpuPause; //true if a delay method is being used
+	private static int _player; //which player is making a move
+	private static int _winner; //which player, if any is the winner
+	private static int _moves; //how many moves have been made
+	private static int[,] _gridData; //stores moves of game on board
+	private static Vector2I _gridPosition; //translates pixels of input to coordinates on the board
+	private static int _boardSize; //size of the game board, in pixels
+	private static int _cellSize; //size of a single cell of the board, in pixels
+	private static int _rowSum; //adds row values to check for victory conditions
+	private static int _rowWin; //which row won the match
+	private static int _colSum; //adds column values to check for victory conditions
+	private static int _colWin; //which column won the match
+	private static int _diagSum1; //adds one diagonal value to check for victory conditions
+	private static int _diagSum2; //adds other diagonal value to check for victory conditions
+	private static bool _1PlayerGame; //true if a single player game
+	private static bool _smartCpu; //true if smart cpu option is chosen
+	private static bool _menuSwitch; //true if altering menu actions and looks
+	private static bool _cpuPause; //true if a delay method is being used
 
 	private Node2D _tempMarker; //switches sprite to indicate who is next
 	private Vector2I _playerPanelPosition; //the position of the nex player panel
@@ -206,7 +206,7 @@ public partial class Main : Node
 	/// Uses the converted cell coordinates of the mouse click to mark that spot with the player's value (-1 or 1).
 	/// Modifies _gridPosition for placing marker
 	/// </summary>
-	private void ModifyGridData()
+	static void ModifyGridData()
 	{
 		//mark the player value into the grid data, at the relevant cell
 		_gridData[_gridPosition.Y, _gridPosition.X] = _player;
@@ -266,7 +266,7 @@ public partial class Main : Node
 	/// can evaluate which cells were used to win.
 	/// </summary>
 	/// <returns>The int value (-1 / 1) of the player that won.</returns>
-	private int CheckWin()
+	public static int CheckWin()
 	{
 		//Add up markers in each diagonal
 		//if any sum value is 3 or -3, then all symbols are the same
@@ -487,7 +487,7 @@ public partial class Main : Node
 		// if true, user is one single player menu. Set difficulty to hard
 		if (_menuSwitch)
 		{
-			_smartCpu = false; //TODO: change to TRUE when MinMax algo is implemented;
+			_smartCpu = true; //TODO: change to TRUE when MinMax algo is implemented;
 			_1PlayerGame = true; //setting property to true to make sure single player logic is followed.
 			NewGame(); //starting the game
 		}

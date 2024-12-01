@@ -1,13 +1,14 @@
 ---
-name: Refactor suggest
-about: Suggest a refactor this project
-title: '*Title* (New Refactor Suggest)'
-labels: refactor, new
+name: Other Issue Report
+about: Suggest something to help us improve
+title: '*Title* (New Other Issue)'
+labels: new
 assignees: ''
 
 ---
 
-**Is your refactor related to a readability? SRP? Optimization? Please describe.**
+
+**What is your task related to? Please describe.**
 What could be improved?
 
 **Describe the solution you'd like**
