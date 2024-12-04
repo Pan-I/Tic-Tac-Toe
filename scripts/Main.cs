@@ -12,23 +12,23 @@ public partial class Main : Node
 	
 	#region Fields Region
 	private static int _player; //which player is making a move
-	private static int _winner; //which player, if any is the winner
-	private static int _moves; //how many moves have been made
 	private static int[,] _gridData; //stores moves of game on board
-	private static Vector2I _gridPosition; //translates pixels of input to coordinates on the board
-	private static int _boardSize; //size of the game board, in pixels
-	private static int _cellSize; //size of a single cell of the board, in pixels
+	private static bool _1PlayerGame; //true if a single player game
+	private static int _moves; //how many moves have been made
+	private static int _winner; //which player, if any is the winner
 	private static int _rowSum; //adds row values to check for victory conditions
 	private static int _rowWin; //which row won the match
 	private static int _colSum; //adds column values to check for victory conditions
 	private static int _colWin; //which column won the match
 	private static int _diagSum1; //adds one diagonal value to check for victory conditions
 	private static int _diagSum2; //adds other diagonal value to check for victory conditions
-	private static bool _1PlayerGame; //true if a single player game
 	private static bool _smartCpu; //true if smart cpu option is chosen
 	private static bool _menuSwitch; //true if altering menu actions and looks
-	private static bool _cpuPause; //true if a delay method is being used
-
+	private static bool _cpuPause; //true used to pause input by player
+	private static int _boardSize; //size of the game board, in pixels
+	private static int _cellSize; //size of a single cell of the board, in pixels
+	//Godot data-type fields;
+	private static Vector2I _gridPosition;  //translates pixels of input to coordinates on the board
 	private Node2D _tempMarker; //switches sprite to indicate who is next
 	private Vector2I _playerPanelPosition; //the position of the nex player panel
 	private Vector2I _winnerPanelPosition; //the position of the winner panel
@@ -115,7 +115,7 @@ public partial class Main : Node
 		GetTree().CallGroup("circles", "queue_free");
 		GetTree().CallGroup("crosses", "queue_free");
 		GetTree().CallGroup("winnerBar", "queue_free");
-		_winner =_moves = _rowSum = _rowWin = _colSum = _colWin = _diagSum1 = _diagSum2 = 0; //set all the trackers to 0;
+		_winner = _moves = _rowSum = _rowWin = _colSum = _colWin = _diagSum1 = _diagSum2 = 0; //set all the trackers to 0;
 	}
 	
 	/// <summary>
@@ -177,7 +177,7 @@ public partial class Main : Node
 		ModifyGridData(); //change board data
 		CreateMarker(_player, _gridPosition); //create marker
 		_moves++; //increment move field for stalemate check
-		if (CheckWin() != 0) //someone won
+		if (CheckWinner() != 0) //someone won
 		{
 			GameOver(_winner); //call the game over menu and display the winner
 		}
@@ -266,7 +266,7 @@ public partial class Main : Node
 	/// can evaluate which cells were used to win.
 	/// </summary>
 	/// <returns>The int value (-1 / 1) of the player that won.</returns>
-	public static int CheckWin()
+	public static int CheckWinner()
 	{
 		//Add up markers in each diagonal
 		//if any sum value is 3 or -3, then all symbols are the same
@@ -309,6 +309,11 @@ public partial class Main : Node
 		return _winner;
 	}
 	
+	internal static void ResetWinnerCheckFields()
+	{
+		_winner = _rowSum = _rowWin = _colSum = _colWin = _diagSum1 = _diagSum2 = 0; //set all the trackers to 0;
+	}
+	
 	/// <summary>
 	/// Evaluates the parameter 'winner' to determine what to display.
 	/// Shows user the game over menu, allowing to restart or return to main.
@@ -328,7 +333,7 @@ public partial class Main : Node
 			MarkWinnerOnBoard(); //places the winner bar, sets the correct sprite for which player won
 			//nested ternary for displaying text for which player won.
 			//not ideal for readability, possible TODO?
-			var winnerMessage = winner == 1 ? "Winner: Player 1" : _1PlayerGame ?  "Winner: CPU" : "Winner: Player 2";
+			var winnerMessage = winner == 1 ? "_winner: Player 1" : _1PlayerGame ?  "_winner: CPU" : "_winner: Player 2";
 			//pass winnerMessage into labels' text values
 			GetNode<CanvasLayer>("GameOverMenu").GetNode<Panel>("GameOverPanel").GetNode<Label>("WinnerLabel").Text = winnerMessage;
 			GetNode<CanvasLayer>("GameOverMenu").GetNode<Label>("LabelShadow").Text = winnerMessage;
@@ -487,7 +492,7 @@ public partial class Main : Node
 		// if true, user is one single player menu. Set difficulty to hard
 		if (_menuSwitch)
 		{
-			_smartCpu = true; //TODO: change to TRUE when MinMax algo is implemented;
+			_smartCpu = true;
 			_1PlayerGame = true; //setting property to true to make sure single player logic is followed.
 			NewGame(); //starting the game
 		}
