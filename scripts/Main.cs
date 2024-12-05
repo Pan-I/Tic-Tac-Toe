@@ -196,8 +196,8 @@ public partial class Main : Node
 			if (_1PlayerGame && _player == -1)
 			{
 				await DelayMethod(); //small delay to give SFX time to play, also feels more natural
-				_gridPosition = CpuPlayer.CpuMove(_gridData, _smartCpu); //call the CPU logic with the current grid data and difficulty setting
-				GameHandling();
+				_gridPosition = CpuPlayer.CpuMove(_gridData, _smartCpu, _moves); //call the CPU logic with the current grid data and difficulty setting
+				await GameHandling();
 			}
 		}
 	}
@@ -309,6 +309,10 @@ public partial class Main : Node
 		return _winner;
 	}
 	
+	/// <summary>
+	/// Resets the fields used to mark the winner on the board.
+	/// This is different compared to private method ClearBoard() in that it is meant to be used mid-game when the CpuPlayer is checking possible moves. 
+	/// </summary>
 	internal static void ResetWinnerCheckFields()
 	{
 		_winner = _rowSum = _rowWin = _colSum = _colWin = _diagSum1 = _diagSum2 = 0; //set all the trackers to 0;
