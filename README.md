@@ -19,6 +19,7 @@ Tic-Tac-Toe as a Godot project, with a working example of the minimax algorithm.
 ## 🔨 Code Page 🔍
 
 Most of the project's code is in [`Main.cs`](https://github.com/Pan-I/Tic-Tac-Toe/blob/main/scripts/Main.cs)
+
 The Min-Max implementation is in [`CpuPlayer.cs`](https://github.com/Pan-I/Tic-Tac-Toe/blob/main/scripts/CpuPlayer.cs)
 
 ---
