@@ -1,7 +1,7 @@
 ## 🔧 Contributing 💾
 In order to contribute, please respect the following. PR's directly to main will be closed without merge.
 
-Fork from main, and PR to a branch with the %Trunk pattern, preferably PrimaryTrunk. Do not email requesting PR's be accepted.
+This repository requires a linear history. Please rebase *Trunk branches before submitting a PR, which should be submitted to a *Trunk branch. PR's directly from development branches and forks into main will not be accepted.
 
 If you generate any new type of files or folder trees that are not intended for the repo itself, but rather your own local build, consider updating the `.gitignore`.
 
