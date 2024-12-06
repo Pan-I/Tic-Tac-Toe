@@ -17,3 +17,9 @@
 (GameMusic:) Cinematic Music - Judgements by Michael-DB -- https://freesound.org/s/569400/ -- License: Attribution 4.0
 
 (LobbyMusic:) Cinematic Music-04 by Michael-DB -- https://freesound.org/s/624018/ -- License: Attribution 4.0
+
+## GODOT:
+
+Author: [Juan Linietsky, Ariel Manzur, and contributors](https://godotengine.org/contact)  
+Source: [godotengine.org](https://godotengine.org/)  
+License: [MIT License](https://github.com/godotengine/godot/blob/master/LICENSE.txt)
