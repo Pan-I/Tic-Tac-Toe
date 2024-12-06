@@ -1,41 +1,42 @@
-# ❌🎮 Tic-Tac-Toe 👾⭕ - v0.9.2.0
-Tic-Tac-Toe as a Godot project. Written in C#. Game includes both 1-player with different difficulty settings, and 2-player gameplay. The game was built with Windows OS is mind, but could be configured and exported to other platforms.
+# ❌🎮 Tic-Tac-Toe 👾⭕ - v0.9.9.1
+
+Tic-Tac-Toe as a Godot project, with a working example of the minimax algorithm. Written entirely in C#. Game includes both 1-player with different difficulty settings, and 2-player gameplay. The game was built with Windows OS is mind, but could be configured and exported to other platforms.
 
 <img src="https://raw.githubusercontent.com/Pan-I/Tic-Tac-Toe/refs/heads/main/readme_links/ReadMe%20ScreenShot.png" alt="broken link of game screenshot 1" width="700"/>
 
 <img src="https://raw.githubusercontent.com/Pan-I/Tic-Tac-Toe/refs/heads/main/readme_links/ReadMe%20ScreenShot%20Small.png" alt="broken link of game screenshot 2" width="345"/> <img src="https://raw.githubusercontent.com/Pan-I/Tic-Tac-Toe/refs/heads/main/readme_links/ReadMe%20ScreenShot%20Small2.png" alt="broken link of game screenshot 3" width="345"/>
 
 ---
-## 🔨 Code Page 🔍
-90% of the projects code is in [`Main.cs`](https://github.com/Pan-I/Tic-Tac-Toe/blob/main/scripts/Main.cs)
-
----
-## ✅ Development To-Do 
-#### [*To-Do Issues Link*](https://github.com/users/Pan-I/projects/3/views/1) (Harder difficulty not implemented, in progress.)
-
----
 ## 🎉 Features 🎁
 #### Full components needed to build the project, including:
+- Working Minimax algorithm example
 - Godot project file
 - Godot Scenes 
 - Scripts (.cs files) complete with in-code comments and summaries
 - Zipped folder of sprites and audio files
 
 ---
-## 🏃 Getting Started 🚀
-0. Requirements/Prerequisites (*below*)
-1. Clone project
-2. Unzip assets folder.
-3. Open Godot Engine
-4. Select import and navigation to cloned project location
-5. Open the `project.godot` file
-6. Build a `.sln` file, preferably directly from Godot 
-	`Project > Tools > C# > Create Solution`
-7. Build project for the first time
-8. For exporting configuration [read here](https://docs.godotengine.org/en/stable/tutorials/export/index.html)
+## 🔨 Code Page 🔍
+
+Most of the project's code is in [`Main.cs`](https://github.com/Pan-I/Tic-Tac-Toe/blob/main/scripts/Main.cs)
+The Min-Max implementation is in [`CpuPlayer.cs`](https://github.com/Pan-I/Tic-Tac-Toe/blob/main/scripts/CpuPlayer.cs)
 
 ---
-## 💻 Requirements/Prerequisites 💽
+## 🏃 Getting Started 🚀
+
+0. Requirements/Prerequisites (*below*)
+1. Unzip assets folder.
+2. Open Godot Engine
+3. Select import and navigation to cloned project location
+4. Open the `project.godot` file
+5. Build a `.sln` file, preferably directly from Godot 
+	`Project > Tools > C# > Create Solution`
+6. Build project for the first time
+7. For Godot's exporting configuration [read here](https://docs.godotengine.org/en/stable/tutorials/export/index.html)
+
+---
+## 💻 Requirements/Environment 💽
+
 You will need to install the Godot game engine to build, run and export the game.
 - [Godot Engine](https://godotengine.org/)
 - [Godot Documentation](https://docs.godotengine.org/en/stable/index.html)
@@ -50,9 +51,19 @@ If you would like to debug the game, you will need a C# IDE that is compatible w
 	- Visual Studio configuration unknown
 
 ---
+## Issues, Enhancements, & Progress
+
+There is a list of [known issues.](https://github.com/Pan-I/Tic-Tac-Toe/issues) If you have suggestions, requests, or come across any problems, you can submit a [new issue ticket here.](https://github.com/Pan-I/Tic-Tac-Toe/issues/new/choose) You can find the [progress of submitted tickets here.](https://github.com/users/Pan-I/projects/7/views/1) 
+
+---
+## 🔧 Contributing 💾
+
+If you would like to contribute to this project, more information found in [CONTRIBUTING.md](https://github.com/Pan-I/Tic-Tac-Toe/tree/main/.github/CONTRIBUTING.md)
+
+---
 ## 📍Attributions 📜
-- All the audio files used in this project are from [freesound.org](https://freesound.org/) 
-- The credits for the audio used are here: [**Attributions link**](https://github.com/Pan-I/Tic-Tac-Toe/tree/main/readme_links/Attributions.md)
+
+The credits for the audio used, are in [**ATTRIBUTIONS.md**](https://github.com/Pan-I/Tic-Tac-Toe/tree/main/readme_links/ATTRIBUTIONS.md)
 
 This project was heavily inspired by the following videos:
 - ['Beginner Godot Tutorial - How To Make Tic Tac Toe' by Coding with Russ](https://www.youtube.com/watch?v=w6leMEr1aGo&ab_channel=CodingWithRuss)
@@ -68,8 +79,13 @@ The following assets in `\assets` did use both Photoshop AI generation, and more
 Any sprites not listed here did ***not*** use AI generation.
 
 ---
-## 🔧 Contributing 💾
+## License 📜
 
-Contributing information found here: [CONTRIBUTING.md](https://github.com/Pan-I/Tic-Tac-Toe/tree/main/.github/CONTRIBUTING.md)
+[Copyright GPL-2.0 (c) (2024) Ian Pommer](https://github.com/Pan-I/Tic-Tac-Toe?tab=GPL-2.0-1-ov-file#readme)
+
+**Godot:**
+Author: [Juan Linietsky, Ariel Manzur, and contributors](https://godotengine.org/contact)  
+Source: [godotengine.org](https://godotengine.org/)  
+License: [MIT License](https://github.com/godotengine/godot/blob/master/LICENSE.txt)
 
 ---

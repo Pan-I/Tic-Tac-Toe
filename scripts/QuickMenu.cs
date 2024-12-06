@@ -14,7 +14,7 @@ public partial class QuickMenu : CanvasLayer
 
 	private void _on_main_menu_button_pressed()
 	{
-			EmitSignal(SignalName.MainMenu);
+		EmitSignal(SignalName.MainMenu);
 	}
 }
 

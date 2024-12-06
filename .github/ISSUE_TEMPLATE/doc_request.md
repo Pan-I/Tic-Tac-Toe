@@ -1,13 +1,14 @@
 ---
-name: Refactor suggest
-about: Suggest a refactor this project
-title: '*Title* (New Refactor Suggest)'
-labels: refactor, new
+name: Documentation request
+about: Suggest a change to documentation
+title: '*Title* (New Document Request Report)'
+labels: documentation, new
 assignees: ''
 
 ---
 
-**Is your refactor related to a readability? SRP? Optimization? Please describe.**
+
+**What is your documentation request related to? Please describe.**
 What could be improved?
 
 **Describe the solution you'd like**
