@@ -1,1 +1,0 @@
-This repository requires a linear history. Please rebase `*Trunk` branches before submitting a PR, which should be submitted to a `*Trunk` branch. PR's directly from development branches and forks into `main` will not be accepted.
