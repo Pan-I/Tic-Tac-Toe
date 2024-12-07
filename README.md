@@ -36,7 +36,7 @@ Tic-Tac-Toe as a Godot project, with a working example of the minimax algorithm.
 
 Most of the project's code is in [`Main.cs`](https://github.com/Pan-I/Tic-Tac-Toe/blob/main/scripts/Main.cs)
 
-The Min-Max implementation is in [`CpuPlayer.cs`](https://github.com/Pan-I/Tic-Tac-Toe/blob/main/scripts/CpuPlayer.cs)
+The minimax implementation is in [`CpuPlayer.cs`](https://github.com/Pan-I/Tic-Tac-Toe/blob/main/scripts/CpuPlayer.cs)
 
 ---
 ## 🏃 Getting Started 🚀
@@ -44,7 +44,7 @@ The Min-Max implementation is in [`CpuPlayer.cs`](https://github.com/Pan-I/Tic-T
 0. Requirements/Prerequisites (*below*)
 1. Unzip assets folder.
 2. Open Godot Engine
-3. Select import and navigation to cloned project location
+3. Select Import and navigate to the cloned project location
 4. Open the `project.godot` file
 5. Build a `.sln` file, preferably directly from Godot 
 	`Project > Tools > C# > Create Solution`
