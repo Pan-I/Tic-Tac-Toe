@@ -6,11 +6,11 @@
 
 ##### ReadMe Table of Contents
 - [Introduction](https://github.com/Pan-I/Tic-Tac-Toe?tab=readme-ov-file#-features-)
-- [Features](https://github.com/Pan-I/Tic-Tac-Toe?tab=readme-ov-file#-features-)
-- [Code Highlights](https://github.com/Pan-I/Tic-Tac-Toe?tab=readme-ov-file#-code-page-)
+- [Features](https://github.com/Pan-I/Tic-Tac-Toe?tab=readme-ov-file#-introduction-)
+- [Code Highlights](https://github.com/Pan-I/Tic-Tac-Toe?tab=readme-ov-file#-code-highlights-)
 - [Getting Started](https://github.com/Pan-I/Tic-Tac-Toe?tab=readme-ov-file#-getting-started-)
 - [Requirements/Environment](https://github.com/Pan-I/Tic-Tac-Toe?tab=readme-ov-file#-requirementsenvironment-)
-- [Issues, Enhancements & Progress](https://github.com/Pan-I/Tic-Tac-Toe?tab=readme-ov-file#-issues-enhancements--progress)
+- [Issues, Enhancements & Progress](https://github.com/Pan-I/Tic-Tac-Toe?tab=readme-ov-file#-issues-enhancements--progress-)
 - [Contributing](https://github.com/Pan-I/Tic-Tac-Toe?tab=readme-ov-file#-contributing-)
 - [Attributions](https://github.com/Pan-I/Tic-Tac-Toe?tab=readme-ov-file#-attributions-)
 - [License](https://github.com/Pan-I/Tic-Tac-Toe?tab=readme-ov-file#-license-)
