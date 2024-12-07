@@ -1,24 +1,26 @@
 # ❌🎮 Tic-Tac-Toe 👾⭕ - v1.0.0.0
 
+
 <img src="https://raw.githubusercontent.com/Pan-I/Tic-Tac-Toe/refs/heads/main/readme_links/ReadMe%20ScreenShot.png" alt="broken link of game screenshot 1" width="700"/>
 
+
 ##### ReadMe Table of Contents
-[Introduction](https://github.com/Pan-I/Tic-Tac-Toe?tab=readme-ov-file#-features-)
-[Features](https://github.com/Pan-I/Tic-Tac-Toe?tab=readme-ov-file#-features-)
-[Code Highlights](https://github.com/Pan-I/Tic-Tac-Toe?tab=readme-ov-file#-code-page-)
-[Getting Started](https://github.com/Pan-I/Tic-Tac-Toe?tab=readme-ov-file#-getting-started-)
-[Requirements/Environment](https://github.com/Pan-I/Tic-Tac-Toe?tab=readme-ov-file#-requirementsenvironment-)
-[Issues, Enhancements & Progress](https://github.com/Pan-I/Tic-Tac-Toe?tab=readme-ov-file#issues-enhancements--progress)
-[Contributing]()
-[Attributions](https://github.com/Pan-I/Tic-Tac-Toe?tab=readme-ov-file#attributions-)
-[License](https://github.com/Pan-I/Tic-Tac-Toe?tab=readme-ov-file#license-)
+- [Introduction](https://github.com/Pan-I/Tic-Tac-Toe?tab=readme-ov-file#-features-)
+- [Features](https://github.com/Pan-I/Tic-Tac-Toe?tab=readme-ov-file#-features-)
+- [Code Highlights](https://github.com/Pan-I/Tic-Tac-Toe?tab=readme-ov-file#-code-page-)
+- [Getting Started](https://github.com/Pan-I/Tic-Tac-Toe?tab=readme-ov-file#-getting-started-)
+- [Requirements/Environment](https://github.com/Pan-I/Tic-Tac-Toe?tab=readme-ov-file#-requirementsenvironment-)
+- [Issues, Enhancements & Progress](https://github.com/Pan-I/Tic-Tac-Toe?tab=readme-ov-file#issues-enhancements--progress)
+- [Contributing](https://github.com/Pan-I/Tic-Tac-Toe?tab=readme-ov-file#-contributing-)
+- [Attributions](https://github.com/Pan-I/Tic-Tac-Toe?tab=readme-ov-file#attributions-)
+- [License](https://github.com/Pan-I/Tic-Tac-Toe?tab=readme-ov-file#license-)
 
 ---
 ## 🎉 Introduction 📣
 
 Tic-Tac-Toe as a Godot project, with a working example of the minimax algorithm. Written entirely in C#. Game includes both 1-player with different difficulty settings, and 2-player gameplay. The game was built with Windows OS is mind, but could be configured and exported to other platforms.
 
-<img src="https://raw.githubusercontent.com/Pan-I/Tic-Tac-Toe/refs/heads/main/readme_links/ReadMe%20ScreenShot%20Small.png" alt="broken link of game screenshot 2" width="345"/> <img src="https://raw.githubusercontent.com/Pan-I/Tic-Tac-Toe/refs/heads/main/readme_links/ReadMe%20ScreenShot%20Small2.png" alt="broken link of game screenshot 3" width="345"/>
+<img src="https://raw.githubusercontent.com/Pan-I/Tic-Tac-Toe/refs/heads/main/readme_links/ReadMe%20ScreenShot%20Small.png" alt="broken link of game screenshot 2" width="450"/> <img src="https://raw.githubusercontent.com/Pan-I/Tic-Tac-Toe/refs/heads/main/readme_links/ReadMe%20ScreenShot%20Small2.png" alt="broken link of game screenshot 3" width="450"/>
 
 ---
 ## 🌟 Features 🎁
@@ -97,11 +99,11 @@ Any sprites not listed here did ***not*** use AI generation.
 ## License 📜
 
 Tic-Tac-Toe, with 1-player and 2-player with different difficulties. A Godot project written in C#.
+
 [Copyright GPL-2.0 (c) (2024) Ian Pommer](https://github.com/Pan-I/Tic-Tac-Toe?tab=GPL-2.0-1-ov-file#readme)
 
 
-**Godot:**
-
+### Godot:
 Author: [Juan Linietsky, Ariel Manzur, and contributors](https://godotengine.org/contact)  
 Source: [godotengine.org](https://godotengine.org/)  
 License: [MIT License](https://github.com/godotengine/godot/blob/master/LICENSE.txt)
