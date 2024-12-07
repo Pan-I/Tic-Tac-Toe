@@ -1,5 +1,7 @@
 #assets are ignored to keep file size down. Always compress saved assets before pushing to capture your changes in your commit
 assets/
+##builds are ignored to avoid uploading exported builds
+builds/
 
 .idea/
 *.cfg
@@ -427,4 +429,3 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-/builds
