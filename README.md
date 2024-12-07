@@ -20,7 +20,7 @@
 
 Tic-Tac-Toe as a Godot project, with a working example of the minimax algorithm. Written entirely in C#. Game includes both 1-player with different difficulty settings, and 2-player game play. The game was built with Windows OS is mind, but could be configured and exported to other platforms.
 
-<img src="https://raw.githubusercontent.com/Pan-I/Tic-Tac-Toe/refs/heads/main/readme_links/ReadMe%20ScreenShot%20Small.png" alt="broken link of game screenshot 2" width="450"/> <img src="https://raw.githubusercontent.com/Pan-I/Tic-Tac-Toe/refs/heads/main/readme_links/ReadMe%20ScreenShot%20Small2.png" alt="broken link of game screenshot 3" width="450"/>
+<img src="https://raw.githubusercontent.com/Pan-I/Tic-Tac-Toe/refs/heads/main/readme_links/ReadMe%20ScreenShot%20Small.png" alt="broken link of game screenshot 2" width="400"/> <img src="https://raw.githubusercontent.com/Pan-I/Tic-Tac-Toe/refs/heads/main/readme_links/ReadMe%20ScreenShot%20Small2.png" alt="broken link of game screenshot 3" width="400"/>
 
 ---
 ## 🌟 Features 🎁
@@ -78,7 +78,7 @@ There is a list of [known issues.](https://github.com/Pan-I/Tic-Tac-Toe/issues) 
 If you would like to contribute to this project, more information found in [CONTRIBUTING.md](https://github.com/Pan-I/Tic-Tac-Toe/tree/main/.github/CONTRIBUTING.md)
 
 ---
-## 📍Attributions 📜
+## 📍Attributions 👥
 
 The credits for the audio used, are in [**ATTRIBUTIONS.md**](https://github.com/Pan-I/Tic-Tac-Toe/tree/main/readme_links/ATTRIBUTIONS.md)
 
@@ -96,7 +96,7 @@ The following assets in `\assets` did use both Photoshop AI generation, and more
 Any sprites not listed here did ***not*** use AI generation.
 
 ---
-## License 📜
+## 📜 License 🔓
 
 Tic-Tac-Toe, with 1-player and 2-player with different difficulties. A Godot project written in C#.
 
