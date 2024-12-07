@@ -422,7 +422,7 @@ public partial class Main : Node
 	private async Task DelayMethod()
 	{
 		_cpuPause = true;
-		await Task.Delay(TimeSpan.FromMilliseconds(1250));
+		await Task.Delay(TimeSpan.FromMilliseconds(750));
 		_cpuPause = false;
 	}
 

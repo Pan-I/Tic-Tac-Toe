@@ -12,3 +12,6 @@ The assets folder is not meant for scenes `(.tscn)` or script `(.cs)` files.
 
 ##### Asset Attributions
 Please update and or create any necessary attributions files if any additional resources are downloaded, instead of created by hand.
+
+##### Build Folder
+Please do not remove the "`build/`" directory location from the `.gitignore` if you wish to contribute.

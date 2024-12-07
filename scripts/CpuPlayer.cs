@@ -20,7 +20,7 @@ public static class CpuPlayer
 	internal static Vector2I CpuMove(int[,] gridData, bool smartCpu = false, int moves = 0)
 	{
 		//random CPU logic
-		if (!smartCpu)
+		if (!smartCpu || moves == 0)
 		{
 			//create a true false grid to mark which spots are open.
 			bool[,] available = new bool[3, 3];
