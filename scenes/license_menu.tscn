@@ -11,14 +11,14 @@ shadow_offset = Vector2(7, 7)
 
 [node name="LicenseMenu" type="CanvasLayer"]
 
-[node name="Panel" type="Panel" parent="."]
+[node name="LicensePanel" type="Panel" parent="."]
 offset_left = 36.0
 offset_top = 442.0
 offset_right = 316.0
 offset_bottom = 557.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_jk122")
 
-[node name="Label" type="Label" parent="Panel"]
+[node name="LicenseLabel" type="Label" parent="LicensePanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -37,7 +37,7 @@ This is free software, and you are welcome to redistribute it under certain cond
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="LicenseLink" type="LinkButton" parent="Panel"]
+[node name="LicenseLink" type="LinkButton" parent="LicensePanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -54,7 +54,7 @@ text = "Click here for details"
 underline = 1
 uri = "https://github.com/Pan-I/Tic-Tac-Toe?tab=GPL-2.0-1-ov-file#readme"
 
-[node name="CreditsLink" type="LinkButton" parent="Panel"]
+[node name="CreditsLink" type="LinkButton" parent="LicensePanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -71,5 +71,5 @@ text = "Credits"
 underline = 1
 uri = "https://github.com/Pan-I/Tic-Tac-Toe/blob/main/readme_links/ATTRIBUTIONS.md"
 
-[connection signal="pressed" from="Panel/LicenseLink" to="." method="_on_link_button_pressed"]
-[connection signal="pressed" from="Panel/CreditsLink" to="." method="_on_link_button_pressed"]
+[connection signal="pressed" from="LicensePanel/LicenseLink" to="." method="_on_link_button_pressed"]
+[connection signal="pressed" from="LicensePanel/CreditsLink" to="." method="_on_link_button_pressed"]
