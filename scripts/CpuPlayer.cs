@@ -1,4 +1,25 @@
-﻿using Godot;
+﻿/*
+ Tic-Tac-Toe with both two-player game play and single-player game play with different difficulties.
+Copyright (C) 2024  Ian Pommer
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+The author can be contacted at pan.i.githubcontact@gmail.com
+*/
+
+using Godot;
 using Random = System.Random;
 
 namespace TicTacToe.scripts;
@@ -91,9 +112,7 @@ public static class CpuPlayer
 					}
 				}
 			}
-
 		}
-		
 		return _gridPosition;
 	}
 	
@@ -104,7 +123,8 @@ public static class CpuPlayer
 	/// <param name="depth"> The recursive depth</param>
 	/// <param name="isMaximizing"> Whether the method is minimizing or maximizing a turn</param>
 	/// <param name="moves"> How many moves have been made.</param>
-	/// <returns></returns>
+	/// <returns> Returns a score: 1(O); -1(X); 0(Tie).
+	///  The score will be compared against a score from another state recursively checked through the method.</returns>
 	private static int MiniMaxMethod(int[,] gridData, int depth, bool isMaximizing, int moves)
 	{
 		//int debug = depth; 

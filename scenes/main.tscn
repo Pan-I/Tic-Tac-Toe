@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dwqstegy0v0o8"]
+[gd_scene load_steps=25 format=3 uid="uid://dwqstegy0v0o8"]
 
 [ext_resource type="PackedScene" uid="uid://n3pmbyr1b6q7" path="res://scenes/board.tscn" id="1_6533p"]
 [ext_resource type="Script" path="res://scripts/Main.cs" id="1_ifv81"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dpyqype4nd877" path="res://scenes/quick_menu.tscn" id="10_24svn"]
 [ext_resource type="AudioStream" uid="uid://h4xmknll10q2" path="res://assets/sfx/NewGameSFX.wav" id="11_ngf2e"]
 [ext_resource type="AudioStream" uid="uid://d32nompk4md7s" path="res://assets/sfx/LoseSFX.wav" id="12_kosdw"]
+[ext_resource type="PackedScene" uid="uid://bs45cgihh0ycd" path="res://scenes/license_menu.tscn" id="13_a0b2j"]
 [ext_resource type="AudioStream" uid="uid://d2pe4xn2uhvnm" path="res://assets/sfx/WinShortSFX.wav" id="13_ybutm"]
 [ext_resource type="AudioStream" uid="uid://d36iqbqn5tbnd" path="res://assets/sfx/GameMusic.mp3" id="14_jbc1n"]
 [ext_resource type="AudioStream" uid="uid://j2s6ja23e48" path="res://assets/sfx/LobbyMusic.mp3" id="15_fs44o"]
@@ -103,6 +104,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_rej8l")
 position = Vector2(103, 102)
 scale = Vector2(0.666, 0.666)
 texture = ExtResource("6_s12mk")
+
+[node name="LicenseMenu" parent="." instance=ExtResource("13_a0b2j")]
 
 [node name="GameOverMenu" parent="." instance=ExtResource("5_3nj22")]
 visible = false

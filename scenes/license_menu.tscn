@@ -1,0 +1,75 @@
+[gd_scene load_steps=2 format=3 uid="uid://bs45cgihh0ycd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jk122"]
+bg_color = Color(0.14902, 0.188235, 0.2, 0.929412)
+skew = Vector2(0.1, 0.02)
+corner_radius_top_left = 15
+corner_radius_bottom_right = 15
+shadow_color = Color(0.14902, 0.168627, 0.219608, 0.6)
+shadow_size = 5
+shadow_offset = Vector2(7, 7)
+
+[node name="LicenseMenu" type="CanvasLayer"]
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 36.0
+offset_top = 442.0
+offset_right = 316.0
+offset_bottom = 557.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_jk122")
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 10
+text = "
+Tic-Tac-Toe v1.0, Copyright (C) 2024 Ian Pommer
+Tic-Tac-Toe comes with ABSOLUTELY NO WARRANTY.
+This is free software, and you are welcome to redistribute it under certain conditions"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="LicenseLink" type="LinkButton" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = 90.0
+offset_right = -159.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.631373, 0.533333, 0.231373, 1)
+theme_override_font_sizes/font_size = 9
+text = "Click here for details"
+underline = 1
+uri = "https://github.com/Pan-I/Tic-Tac-Toe?tab=GPL-2.0-1-ov-file#readme"
+
+[node name="CreditsLink" type="LinkButton" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 192.0
+offset_top = 90.0
+offset_right = -57.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.631373, 0.533333, 0.231373, 1)
+theme_override_font_sizes/font_size = 9
+text = "Credits"
+underline = 1
+uri = "https://github.com/Pan-I/Tic-Tac-Toe/blob/main/readme_links/ATTRIBUTIONS.md"
+
+[connection signal="pressed" from="Panel/LicenseLink" to="." method="_on_link_button_pressed"]
+[connection signal="pressed" from="Panel/CreditsLink" to="." method="_on_link_button_pressed"]
