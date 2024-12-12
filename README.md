@@ -99,9 +99,9 @@ Any sprites not listed here did ***not*** use AI generation.
 ## 📜 License 🔓
 
 Tic-Tac-Toe, with 1-player and 2-player with different difficulties. A Godot project written in C#.
+Copyright GPL-2.0 (c) (2024) Ian Pommer
 
-[Copyright GPL-2.0 (c) (2024) Ian Pommer](https://github.com/Pan-I/Tic-Tac-Toe?tab=GPL-2.0-1-ov-file#readme)
-
+This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version. [Click here for details](https://github.com/Pan-I/Tic-Tac-Toe?tab=GPL-2.0-1-ov-file#readme)
 
 ### Godot:
 Author: [Juan Linietsky, Ariel Manzur, and contributors](https://godotengine.org/contact)  
