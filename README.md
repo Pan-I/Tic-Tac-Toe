@@ -1,4 +1,4 @@
-# ❌🎮 Tic-Tac-Toe 👾⭕ - v1.0.0.0
+# ❌🎮 Tic-Tac-Toe 👾⭕ - v1.0.1.1
 
 
 <img src="https://raw.githubusercontent.com/Pan-I/Tic-Tac-Toe/refs/heads/main/readme_links/ReadMe%20ScreenShot.png" alt="broken link of game screenshot 1" width="700"/>
