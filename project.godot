@@ -14,7 +14,7 @@ config/name="Tic-Tac-Toe"
 config/description="Tic-Tac-Toe as a Godot project, with a working example of the minimax algorithm. Written entirely in C#. Game includes both 1-player with different difficulty settings, and 2-player gameplay. 
 
 Copyright GPL-2.0 (C) <2024>  <Ian M Pommer>"
-config/version="1.0.0.0"
+config/version="1.0.1"
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://icon.svg"
