@@ -1,3 +1,24 @@
+/*
+ Tic-Tac-Toe with both two-player game play and single-player game play with different difficulties.
+Copyright (C) 2024  Ian Pommer
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+The author can be contacted at pan.i.githubcontact@gmail.com
+*/
+
 using System;
 using System.Threading.Tasks;
 using Godot;
@@ -41,6 +62,7 @@ public partial class Main : Node
 	{
 		BoardPrep();	//get size and cell size of board and other panels for gameplay
 		GetNode<AudioStreamPlayer>("LobbyMusic").Play(); //play lobby music upon start
+		GetNode<CanvasLayer>("LicenseMenu").Show(); //show the license menu
 	}
 	
 		//We will watch for user input to control all aspects of the gameplay.
@@ -162,6 +184,7 @@ public partial class Main : Node
 			_gridPosition = CpuPlayer.CpuMove(_gridData, _smartCpu);
 			GameHandling();
 		}
+		GetNode<CanvasLayer>("LicenseMenu").Hide(); //hide the license menu
 	}
 	
 	// We will modify the board data, then we will create a marker on the cell modified.
