@@ -103,7 +103,9 @@ Copyright GPL-2.0 (c) (2024) Ian Pommer
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version. [Click here for details](https://github.com/Pan-I/Tic-Tac-Toe?tab=GPL-2.0-1-ov-file#readme)
 
-### Godot:
+All audio files are under various creative commons or attribution licenses, further details and credits can be found here: [**ATTRIBUTIONS.md**](https://github.com/Pan-I/Tic-Tac-Toe/tree/main/readme_links/ATTRIBUTIONS.md)
+
+### Godot Game Engine:
 Author: [Juan Linietsky, Ariel Manzur, and contributors](https://godotengine.org/contact)  
 Source: [godotengine.org](https://godotengine.org/)  
 License: [MIT License](https://github.com/godotengine/godot/blob/master/LICENSE.txt)
